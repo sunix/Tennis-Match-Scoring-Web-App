@@ -61,7 +61,8 @@ function checkSetWin(
   const newSetB = winner === "B" ? setB + 1 : setB;
 
   // Check match win
-  const setsNeeded = config.bestOf === 2 ? 1 : Math.ceil(config.bestOf / 2);
+  // For bestOf=2, both sets must be won outright (2-0/0-2); at 1-1 a super tiebreak decides
+  const setsNeeded = config.bestOf === 2 ? 2 : Math.ceil(config.bestOf / 2);
   const matchWinner: "A" | "B" | null =
     newSetA >= setsNeeded ? "A" : newSetB >= setsNeeded ? "B" : null;
 

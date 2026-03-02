@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# Tennis Match Scoring Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A static web application for logging tennis match scoring events with video timestamps, built with React + TypeScript + Vite and deployed to GitHub Pages.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Video Loading**: Load a local match video via file picker or drag & drop (no upload — runs entirely in browser)
+- **Video Controls**: Play/Pause, playback speed (0.25x / 0.5x / 1x), seek bar, frame-level nudge (+1 / -1 frame)
+- **Match Setup**: Configure player names, match format (Best of 3/5 or 2+supertiebreak), games per set, tiebreak rules, initial server, and FPS hint
+- **Event Logging**: Large Point A / Point B buttons with keyboard shortcuts (`A` / `B` keys, `Ctrl+Z` to undo)
+- **Live Scoreboard**: Broadcast-style scoreboard showing sets, games, points, and server indicator
+- **Event List**: Editable table of logged points with computed score after each event; supports timestamp editing and deletion
+- **Export / Import**: Download a `match.json` file or re-import a previously saved project
 
-## React Compiler
+## Data Format
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+```json
+{
+  "version": 1,
+  "video": { "name": "match.mp4", "duration_s": 5432.12, "fps_hint": 30 },
+  "match": {
+    "playerA": "Player A", "playerB": "Player B",
+    "bestOf": 3, "gamesPerSet": 6, "tiebreakAt": 6, "tiebreakPoints": 7, "serverFirst": "A"
   },
-])
+  "events": [
+    { "t_s": 12.340, "type": "point", "winner": "A" }
+  ]
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+## Build & Deploy
+
+```bash
+npm run build
+```
+
+Pushes to `main` automatically deploy to GitHub Pages via the included workflow.

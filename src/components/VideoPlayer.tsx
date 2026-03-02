@@ -3,10 +3,11 @@ import type { VideoInfo } from "../types";
 
 interface Props {
   onVideoInfo: (info: VideoInfo) => void;
+  onCurrentTimeChange?: (t: number) => void;
   fpsHint: number;
 }
 
-export default function VideoPlayer({ onVideoInfo, fpsHint }: Props) {
+export default function VideoPlayer({ onVideoInfo, onCurrentTimeChange, fpsHint }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [src, setSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -52,7 +53,10 @@ export default function VideoPlayer({ onVideoInfo, fpsHint }: Props) {
   }
 
   function handleTimeUpdate() {
-    if (videoRef.current) setCurrentTime(videoRef.current.currentTime);
+    if (videoRef.current) {
+      setCurrentTime(videoRef.current.currentTime);
+      onCurrentTimeChange?.(videoRef.current.currentTime);
+    }
   }
 
   function handlePlayPause() {
@@ -76,6 +80,7 @@ export default function VideoPlayer({ onVideoInfo, fpsHint }: Props) {
     if (videoRef.current) {
       videoRef.current.currentTime = t;
       setCurrentTime(t);
+      onCurrentTimeChange?.(t);
     }
   }
 
@@ -85,6 +90,7 @@ export default function VideoPlayer({ onVideoInfo, fpsHint }: Props) {
     const frameLen = 1 / fpsHint;
     v.currentTime = Math.max(0, Math.min(duration, v.currentTime + frames * frameLen));
     setCurrentTime(v.currentTime);
+    onCurrentTimeChange?.(v.currentTime);
   }
 
   function formatTime(t: number): string {

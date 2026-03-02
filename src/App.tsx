@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import { reducer, initialAppState } from "./store/reducer";
 import type { MatchConfig, VideoInfo } from "./types";
 import MatchSetup from "./components/MatchSetup";
@@ -12,6 +12,7 @@ import "./App.css";
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialAppState);
+  const videoTimeRef = useRef<number>(0);
 
   function handleStart(config: MatchConfig) {
     dispatch({ type: "SET_CONFIG", payload: config });
@@ -22,7 +23,7 @@ export default function App() {
   }
 
   function handlePoint(winner: "A" | "B") {
-    const t_s = Date.now() / 1000;
+    const t_s = videoTimeRef.current;
     dispatch({
       type: "ADD_EVENT",
       payload: {
@@ -109,7 +110,7 @@ export default function App() {
 
       <main className="app-main">
         <section className="left-panel">
-          <VideoPlayer onVideoInfo={handleVideoInfo} fpsHint={fpsHint} />
+          <VideoPlayer onVideoInfo={handleVideoInfo} onCurrentTimeChange={(t) => { videoTimeRef.current = t; }} fpsHint={fpsHint} />
           <Scoreboard config={state.config} state={currentState} />
           <ScoringPanel
             playerA={state.config.playerA}

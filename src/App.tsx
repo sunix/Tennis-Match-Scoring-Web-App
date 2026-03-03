@@ -1,4 +1,4 @@
-import { useReducer, useRef } from "react";
+import { useReducer, useRef, useState } from "react";
 import { reducer, initialAppState } from "./store/reducer";
 import type { MatchConfig, VideoInfo } from "./types";
 import MatchSetup from "./components/MatchSetup";
@@ -6,13 +6,14 @@ import VideoPlayer from "./components/VideoPlayer";
 import ScoringPanel from "./components/ScoringPanel";
 import EventList from "./components/EventList";
 import Scoreboard from "./components/Scoreboard";
-import { getInitialState } from "./engine/scoring";
 import { exportProject, importProject } from "./utils/exportImport";
+import { stateAtTime } from "./utils/stateAtTime";
 import "./App.css";
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialAppState);
   const videoTimeRef = useRef<number>(0);
+  const [videoTime, setVideoTime] = useState(0);
 
   function handleStart(config: MatchConfig) {
     dispatch({ type: "SET_CONFIG", payload: config });
@@ -80,10 +81,7 @@ export default function App() {
     return <MatchSetup onStart={handleStart} />;
   }
 
-  const currentState =
-    state.snapshots.length > 0
-      ? state.snapshots[state.snapshots.length - 1]
-      : getInitialState(state.config);
+  const currentState = stateAtTime(state.events, state.snapshots, videoTime, state.config);
 
   const matchOver = !!currentState.matchWinner;
   const fpsHint = state.videoInfo?.fps_hint ?? 30;
@@ -110,7 +108,7 @@ export default function App() {
 
       <main className="app-main">
         <section className="left-panel">
-          <VideoPlayer onVideoInfo={handleVideoInfo} onCurrentTimeChange={(t) => { videoTimeRef.current = t; }} fpsHint={fpsHint} />
+          <VideoPlayer onVideoInfo={handleVideoInfo} onCurrentTimeChange={(t) => { videoTimeRef.current = t; setVideoTime(t); }} fpsHint={fpsHint} />
           <Scoreboard config={state.config} state={currentState} />
           <ScoringPanel
             playerA={state.config.playerA}

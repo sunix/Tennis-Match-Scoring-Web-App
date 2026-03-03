@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import type { MatchConfig } from "../types";
+import { listSavedMatches, deleteMatch, type SavedMatch } from "../utils/localStorage";
 
 interface Props {
   onStart: (config: MatchConfig) => void;
+  onLoad: (saved: SavedMatch) => void;
 }
 
-export default function MatchSetup({ onStart }: Props) {
+export default function MatchSetup({ onStart, onLoad }: Props) {
   const [playerA, setPlayerA] = useState("Player A");
   const [playerB, setPlayerB] = useState("Player B");
   const [bestOf, setBestOf] = useState<3 | 5 | 2>(3);
@@ -14,6 +16,12 @@ export default function MatchSetup({ onStart }: Props) {
   const [tiebreakPoints, setTiebreakPoints] = useState(7);
   const [serverFirst, setServerFirst] = useState<"A" | "B">("A");
   const [fpsHint, setFpsHint] = useState(30);
+  const [savedMatches, setSavedMatches] = useState<SavedMatch[]>(() => listSavedMatches());
+
+  function handleDelete(id: string) {
+    deleteMatch(id);
+    setSavedMatches(listSavedMatches());
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -143,6 +151,39 @@ export default function MatchSetup({ onStart }: Props) {
             Start Match
           </button>
         </form>
+
+        {savedMatches.length > 0 && (
+          <div className="saved-matches">
+            <h3 className="saved-matches-title">Saved Matches</h3>
+            <ul className="saved-matches-list">
+              {savedMatches.map((match) => (
+                <li key={match.id} className="saved-match-item">
+                  <div className="saved-match-info">
+                    <span className="saved-match-players">
+                      {match.config?.playerA} vs {match.config?.playerB}
+                    </span>
+                    <span className="saved-match-meta">
+                      {new Date(match.savedAt).toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}{" "}
+                      · {match.events.length} pts
+                    </span>
+                  </div>
+                  <div className="saved-match-actions">
+                    <button className="btn-load-match" onClick={() => onLoad(match)}>
+                      Load
+                    </button>
+                    <button className="btn-delete-match" onClick={() => handleDelete(match.id)}>
+                      ✕
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

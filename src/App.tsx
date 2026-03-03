@@ -1,4 +1,4 @@
-import { useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { reducer, initialAppState } from "./store/reducer";
 import type { MatchConfig, VideoInfo } from "./types";
 import MatchSetup from "./components/MatchSetup";
@@ -8,15 +8,32 @@ import EventList from "./components/EventList";
 import Scoreboard from "./components/Scoreboard";
 import { exportProject, importProject } from "./utils/exportImport";
 import { stateAtTime } from "./utils/stateAtTime";
+import { saveMatch, type SavedMatch } from "./utils/localStorage";
 import "./App.css";
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialAppState);
   const videoTimeRef = useRef<number>(0);
   const [videoTime, setVideoTime] = useState(0);
+  const matchIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!state.config || !matchIdRef.current) return;
+    saveMatch(matchIdRef.current, state);
+  }, [state]);
 
   function handleStart(config: MatchConfig) {
+    matchIdRef.current = crypto.randomUUID();
     dispatch({ type: "SET_CONFIG", payload: config });
+  }
+
+  function handleLoadMatch(saved: SavedMatch) {
+    matchIdRef.current = saved.id;
+    const payload = { config: saved.config, videoInfo: saved.videoInfo, events: saved.events, snapshots: [] };
+    dispatch({ type: "IMPORT", payload });
+    if (saved.config) {
+      dispatch({ type: "SET_CONFIG", payload: saved.config });
+    }
   }
 
   function handleVideoInfo(info: VideoInfo) {
@@ -63,6 +80,7 @@ export default function App() {
       reader.onload = () => {
         try {
           const imported = importProject(reader.result as string);
+          matchIdRef.current = crypto.randomUUID();
           // First import raw state, then recompute by setting config
           dispatch({ type: "IMPORT", payload: imported });
           if (imported.config) {
@@ -77,8 +95,13 @@ export default function App() {
     input.click();
   }
 
+  function handleNewMatch() {
+    matchIdRef.current = null;
+    dispatch({ type: "IMPORT", payload: initialAppState });
+  }
+
   if (!state.config) {
-    return <MatchSetup onStart={handleStart} />;
+    return <MatchSetup onStart={handleStart} onLoad={handleLoadMatch} />;
   }
 
   const currentState = stateAtTime(state.events, state.snapshots, videoTime, state.config);
@@ -99,7 +122,7 @@ export default function App() {
           </button>
           <button
             className="btn-secondary btn-new"
-            onClick={() => dispatch({ type: "IMPORT", payload: initialAppState })}
+            onClick={handleNewMatch}
           >
             New Match
           </button>

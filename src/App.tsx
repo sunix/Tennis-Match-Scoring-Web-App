@@ -6,7 +6,7 @@ import VideoPlayer from "./components/VideoPlayer";
 import ScoringPanel from "./components/ScoringPanel";
 import EventList from "./components/EventList";
 import Scoreboard from "./components/Scoreboard";
-import { exportProject, importProject } from "./utils/exportImport";
+import { exportProject, exportSRT, importProject } from "./utils/exportImport";
 import { stateAtTime } from "./utils/stateAtTime";
 import { saveMatch, type SavedMatch } from "./utils/localStorage";
 import "./App.css";
@@ -65,6 +65,10 @@ export default function App() {
     dispatch({ type: "EDIT_EVENT_TIMESTAMP", payload: { id, t_s } });
   }
 
+  function handleExportSRT() {
+    exportSRT(state);
+  }
+
   function handleExport() {
     exportProject(state);
   }
@@ -115,7 +119,10 @@ export default function App() {
         <h1 className="app-title">🎾 Tennis Match Scoring</h1>
         <div className="header-actions">
           <button className="btn-secondary" onClick={handleExport}>
-            ⬇ Export
+            ⬇ Export JSON
+          </button>
+          <button className="btn-secondary" onClick={handleExportSRT} title="Export score subtitles for Kdenlive">
+            ⬇ Export SRT
           </button>
           <button className="btn-secondary" onClick={handleImport}>
             ⬆ Import

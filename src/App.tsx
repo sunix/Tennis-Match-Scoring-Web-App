@@ -7,6 +7,7 @@ import ScoringPanel from "./components/ScoringPanel";
 import EventList from "./components/EventList";
 import Scoreboard from "./components/Scoreboard";
 import { exportProject, importProject } from "./utils/exportImport";
+import { exportToKdenlive, downloadKdenliveFile } from "./utils/kdenliveExport";
 import { stateAtTime } from "./utils/stateAtTime";
 import { saveMatch, type SavedMatch } from "./utils/localStorage";
 import "./App.css";
@@ -95,6 +96,31 @@ export default function App() {
     input.click();
   }
 
+  function handleExportToKdenlive() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".kdenlive,.xml";
+    input.onchange = () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const modified = exportToKdenlive(state, reader.result as string);
+          const baseName = file.name.replace(/\.(kdenlive|xml)$/i, "");
+          downloadKdenliveFile(modified, `${baseName}-with-scores.kdenlive`);
+        } catch (e) {
+          alert(
+            "Failed to export to kdenlive: " +
+              (e instanceof Error ? e.message : String(e))
+          );
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
   function handleNewMatch() {
     matchIdRef.current = null;
     dispatch({ type: "IMPORT", payload: initialAppState });
@@ -119,6 +145,9 @@ export default function App() {
           </button>
           <button className="btn-secondary" onClick={handleImport}>
             ⬆ Import
+          </button>
+          <button className="btn-secondary" onClick={handleExportToKdenlive}>
+            🎬 Export to Kdenlive
           </button>
           <button
             className="btn-secondary btn-new"

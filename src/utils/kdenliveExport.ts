@@ -91,21 +91,16 @@ export function buildScoreSegments(
 }
 
 /**
- * Format a score line for one player row.
- */
-function playerScoreLine(
-  name: string,
-  sets: number,
-  games: number,
-  isServer: boolean
-): string {
-  const indicator = isServer ? " ●" : "";
-  return `${name}${indicator}   ${sets}   ${games}`;
-}
-
-/**
  * Build the kdenlivetitle XML string for the given match state.
  * Kdenlive writes title clips in the `xmldata` producer property.
+ *
+ * Layout (table-like, 2 rows):
+ *   ● Alice   1  3  40
+ *     Bob     1  2  15
+ *
+ * Each column is a separate QGraphicsTextItem positioned at a fixed x
+ * coordinate so scores stay aligned regardless of name length.
+ * The serve-indicator bullet (●) is rendered in orange; all other text is white.
  *
  * @param state   Current match state.
  * @param config  Match configuration.
@@ -120,42 +115,24 @@ export function buildTitleContent(
   height: number,
   durationFrames: number
 ): string {
-  // --- Score lines ---
-  const lineA = playerScoreLine(
-    config.playerA,
-    state.setA,
-    state.gameA,
-    state.server === "A"
-  );
-  const lineB = playerScoreLine(
-    config.playerB,
-    state.setB,
-    state.gameB,
-    state.server === "B"
-  );
-
-  let pointLine = "";
-  if (!state.matchWinner) {
-    if (state.tbA !== null && state.tbB !== null) {
-      pointLine = `TB  ${state.tbA} – ${state.tbB}`;
-    } else {
-      const pa = pointLabel(state.pointA, state.pointB);
-      const pb = pointLabel(state.pointB, state.pointA);
-      pointLine = `${pa} – ${pb}`;
-    }
-  } else {
-    pointLine = `Winner: ${state.matchWinner === "A" ? config.playerA : config.playerB}`;
-  }
-
   // --- Layout constants ---
   const fontSize = Math.round(height * 0.028); // ~30 px at 1080p
   const lineH = Math.round(fontSize * 1.4);
   const padding = Math.round(fontSize * 0.6);
-  const bgW = Math.round(width * 0.32);
-  const bgH = lineH * 3 + padding * 2;
+  const bgW = Math.round(width * 0.40);   // wider to fit 5 columns
+  const bgH = lineH * 2 + padding * 2;   // 2 player rows
   const bgX = padding * 2;
   const bgY = height - bgH - padding * 3;
-  const textX = bgX + padding;
+
+  // Column x positions (bullet | name | set | game | point)
+  const colBullet = bgX + padding;
+  const bulletW   = fontSize;
+  const colName   = colBullet + bulletW;
+  const nameW     = Math.round(bgW * 0.38);
+  const colSet    = colName + nameW;
+  const colW      = Math.round(bgW * 0.12);
+  const colGame   = colSet + colW;
+  const colPoint  = colGame + colW;
 
   const esc = (s: string) =>
     s
@@ -173,22 +150,54 @@ export function buildTitleContent(
     `brushcolor="#b2005500" pencolor="#00000000" penwidth="0"/>` +
     `</item>`;
 
-  const textItem = (text: string, row: number, zValue: number) =>
+  const textItem = (text: string, x: number, row: number, zValue: number, color = "#ffffffff") =>
     `<item type="QGraphicsTextItem" z-value="${zValue}">` +
-    `<position x="${textX}" y="${bgY + padding + row * lineH}">` +
+    `<position x="${x}" y="${bgY + padding + row * lineH}">` +
     `<transform>1,0,0,0,1,0,0,0,1</transform>` +
     `</position>` +
     `<content shadow="0;#64000000;2;2;2" font-pixel-size="${fontSize}" ` +
     `alignment="1" font-italic="0" font-weight="75" font="MS Shell Dlg 2" ` +
-    `font-underline="0" font-color="#ffffffff" font-outline="2" ` +
+    `font-underline="0" font-color="${color}" font-outline="2" ` +
     `font-outline-color="#ff000000">${esc(text)}</content>` +
     `</item>`;
 
-  const items =
-    rectItem +
-    textItem(lineA, 0, 1) +
-    textItem(lineB, 1, 2) +
-    textItem(pointLine, 2, 3);
+  // --- Per-player point labels ---
+  let pointA = "";
+  let pointB = "";
+  if (!state.matchWinner) {
+    if (state.tbA !== null && state.tbB !== null) {
+      // Prefix "TB" on both rows so viewers know it's a tiebreak
+      pointA = `TB ${state.tbA}`;
+      pointB = `TB ${state.tbB}`;
+    } else {
+      pointA = pointLabel(state.pointA, state.pointB);
+      pointB = pointLabel(state.pointB, state.pointA);
+    }
+  } else {
+    // Show "Winner" in the point column of the winning player's row
+    if (state.matchWinner === "A") pointA = "Winner";
+    else pointB = "Winner";
+  }
+
+  // --- Assemble items ---
+  // Orange bullet for the serving player; all other text is white.
+  const BULLET_COLOR = "#ffff8c00";
+  let zVal = 1;
+  let items = rectItem;
+
+  // Row 0 – Player A
+  if (state.server === "A") items += textItem("●", colBullet, 0, zVal++, BULLET_COLOR);
+  items += textItem(config.playerA, colName,  0, zVal++);
+  items += textItem(String(state.setA),  colSet,   0, zVal++);
+  items += textItem(String(state.gameA), colGame,  0, zVal++);
+  items += textItem(pointA,              colPoint, 0, zVal++);
+
+  // Row 1 – Player B
+  if (state.server === "B") items += textItem("●", colBullet, 1, zVal++, BULLET_COLOR);
+  items += textItem(config.playerB, colName,  1, zVal++);
+  items += textItem(String(state.setB),  colSet,   1, zVal++);
+  items += textItem(String(state.gameB), colGame,  1, zVal++);
+  items += textItem(pointB,              colPoint, 1, zVal++);
 
   return (
     `<kdenlivetitle duration="${durationFrames}" LC_NUMERIC="C" width="${width}" ` +

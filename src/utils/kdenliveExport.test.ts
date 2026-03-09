@@ -180,6 +180,35 @@ describe("buildTitleContent", () => {
     expect(xml).toContain("●");
   });
 
+  it("renders the serve-indicator bullet in orange/yellow, not white", () => {
+    const xml = buildTitleContent(baseState, config, 1920, 1080, 250);
+    // The bullet item must have a non-white font-color (orange/amber)
+    const bulletItemMatch = xml.match(/font-color="([^"]+)"[^>]*>●/);
+    expect(bulletItemMatch).not.toBeNull();
+    expect(bulletItemMatch![1]).not.toBe("#ffffffff");
+  });
+
+  it("places the point score on each player's row (not a third row)", () => {
+    // baseState: pointA=2 → "30", pointB=1 → "15"
+    const xml = buildTitleContent(baseState, config, 1920, 1080, 250);
+    // Both point labels must appear somewhere in the output
+    expect(xml).toContain("30");
+    expect(xml).toContain("15");
+    // The layout uses only 2 rows; we verify by counting QGraphicsTextItem blocks
+    const itemCount = (xml.match(/type="QGraphicsTextItem"/g) ?? []).length;
+    // 2 rows × (name + set + game + point) = 8 text items always,
+    // plus 1 bullet for the serving player = 9 items when server is defined
+    expect(itemCount).toBeLessThanOrEqual(9);
+    expect(itemCount).toBeGreaterThanOrEqual(8); // at least 8 (no bullet for non-server)
+  });
+
+  it("does not render a separate third row for the point score", () => {
+    // The old layout had a 3rd row "40 – 15"; the new layout puts each score on its row.
+    const xml = buildTitleContent(baseState, config, 1920, 1080, 250);
+    // "–" (en-dash separator) should no longer appear as it was only in the old point row
+    expect(xml).not.toContain(" – ");
+  });
+
   it("encodes special XML characters in player names", () => {
     const specialConfig: MatchConfig = {
       ...config,

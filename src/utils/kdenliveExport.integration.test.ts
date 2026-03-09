@@ -77,6 +77,20 @@ describe("exportToKdenlive – project bin registration", () => {
     }
   });
 
+  it("serializes score producers before the project bin playlist", () => {
+    const result = exportToKdenlive(buildAppState(), makeKdenliveXml());
+    const doc = parseXml(result);
+
+    const firstScoreProducer = doc.querySelector("producer[id^='kdenlive_scores_producer_']");
+    const mainBin = doc.querySelector('playlist[id="main_bin"]');
+
+    expect(firstScoreProducer).not.toBeNull();
+    expect(mainBin).not.toBeNull();
+
+    const pos = firstScoreProducer!.compareDocumentPosition(mainBin!);
+    expect((pos & Node.DOCUMENT_POSITION_FOLLOWING) !== 0).toBe(true);
+  });
+
   it("registers every produced segment in the main_bin (no orphaned producers)", () => {
     const result = exportToKdenlive(buildAppState(), makeKdenliveXml());
     const doc = parseXml(result);
@@ -93,6 +107,89 @@ describe("exportToKdenlive – project bin registration", () => {
     for (const producerId of allProducers) {
       expect(binEntryIds).toContain(producerId);
     }
+  });
+
+  it("uses timecode in/out values for score entries in main_bin", () => {
+    const result = exportToKdenlive(buildAppState(), makeKdenliveXml());
+    const doc = parseXml(result);
+
+    const mainBin = doc.querySelector('playlist[id="main_bin"]')!;
+    const scoreEntries = Array.from(mainBin.querySelectorAll("entry")).filter((e) =>
+      (e.getAttribute("producer") ?? "").startsWith("kdenlive_scores_producer_")
+    );
+
+    expect(scoreEntries.length).toBeGreaterThan(0);
+    for (const entry of scoreEntries) {
+      expect(entry.getAttribute("in") ?? "").toMatch(/^\d{2}:\d{2}:\d{2}\.\d{3}$/);
+      expect(entry.getAttribute("out") ?? "").toMatch(/^\d{2}:\d{2}:\d{2}\.\d{3}$/);
+    }
+  });
+
+  it("creates a project bin when none exists", () => {
+    // XML without any bin
+    const xmlWithoutBin = `<?xml version="1.0" encoding="utf-8"?>
+<mlt version="7.0.0">
+  <profile description="HD 1080p 25fps" width="1920" height="1080"
+           frame_rate_num="25" frame_rate_den="1"/>
+  <producer id="black" in="0" out="9999">
+    <property name="mlt_service">color</property>
+  </producer>
+  <playlist id="video_track_0"/>
+  <tractor id="main_tractor">
+    <property name="kdenlive:projectTractor">1</property>
+    <track producer="black"/>
+    <track producer="video_track_0"/>
+  </tractor>
+</mlt>`;
+
+    const result = exportToKdenlive(buildAppState(), xmlWithoutBin);
+    const doc = parseXml(result);
+    
+    // Should create a main_bin
+    const mainBin = doc.querySelector('playlist[id="main_bin"]');
+    expect(mainBin).not.toBeNull();
+    
+    // Should contain score producer entries
+    const entries = Array.from(mainBin!.querySelectorAll("entry"));
+    const scoreEntries = entries.filter(e => 
+      e.getAttribute("producer")?.startsWith("kdenlive_scores_producer_")
+    );
+    expect(scoreEntries.length).toBeGreaterThan(0);
+  });
+
+  it("finds project bin with alternative IDs", () => {
+    // Test with project_bin instead of main_bin
+    const xmlWithProjectBin = `<?xml version="1.0" encoding="utf-8"?>
+<mlt version="7.0.0">
+  <profile description="HD 1080p 25fps" width="1920" height="1080"
+           frame_rate_num="25" frame_rate_den="1"/>
+  <playlist id="project_bin">
+    <property name="kdenlive:docproperties.decimalPoint">.</property>
+  </playlist>
+  <producer id="black" in="0" out="9999">
+    <property name="mlt_service">color</property>
+  </producer>
+  <playlist id="video_track_0"/>
+  <tractor id="main_tractor">
+    <property name="kdenlive:projectTractor">1</property>
+    <track producer="black"/>
+    <track producer="video_track_0"/>
+  </tractor>
+</mlt>`;
+
+    const result = exportToKdenlive(buildAppState(), xmlWithProjectBin);
+    const doc = parseXml(result);
+    
+    // Should use the existing project_bin 
+    const projectBin = doc.querySelector('playlist[id="project_bin"]');
+    expect(projectBin).not.toBeNull();
+    
+    // Should contain score producer entries
+    const entries = Array.from(projectBin!.querySelectorAll("entry"));
+    const scoreEntries = entries.filter(e => 
+      e.getAttribute("producer")?.startsWith("kdenlive_scores_producer_")
+    );
+    expect(scoreEntries.length).toBeGreaterThan(0);
   });
 
   it("works correctly even when main_bin is absent (no crash)", () => {
@@ -119,10 +216,7 @@ describe("exportToKdenlive – project bin registration", () => {
 });
 
 describe("exportToKdenlive – transition a_track", () => {
-  it("sets a_track to the track immediately below the score track", () => {
-    // The tractor starts with 2 tracks (indices 0 and 1).
-    // After adding the score track it becomes index 2.
-    // a_track should be 1 (the track just below), not 0.
+  it("uses cairoblend from track 0 to the appended score track", () => {
     const result = exportToKdenlive(buildAppState(), makeKdenliveXml());
     const doc = parseXml(result);
 
@@ -131,7 +225,7 @@ describe("exportToKdenlive – transition a_track", () => {
       const service = Array.from(t.querySelectorAll("property")).find(
         (p) => p.getAttribute("name") === "mlt_service"
       );
-      return service?.textContent === "qtblend";
+      return service?.textContent === "frei0r.cairoblend";
     });
     expect(scoreTransition).not.toBeUndefined();
 
@@ -143,13 +237,17 @@ describe("exportToKdenlive – transition a_track", () => {
     const bTrack = parseInt(getVal(scoreTransition!, "b_track") ?? "-1", 10);
     const aTrack = parseInt(getVal(scoreTransition!, "a_track") ?? "-1", 10);
 
+    const tracks = Array.from(doc.querySelectorAll('tractor[id="main_tractor"] > track'));
+    const expectedScoreTrackIndex = tracks.length - 1;
+
     // b_track is the new score track (last track in tractor)
     expect(bTrack).toBeGreaterThan(0);
-    // a_track must be the track directly below b_track, not 0
-    expect(aTrack).toBe(bTrack - 1);
+    expect(bTrack).toBe(expectedScoreTrackIndex);
+    // a_track follows Kdenlive overlay convention in reference files
+    expect(aTrack).toBe(0);
   });
 
-  it("a_track is at least 0 when the score track is the only track", () => {
+  it("keeps a_track at 0 when adding score track to minimal tractor", () => {
     const xmlSingleTrack = `<?xml version="1.0" encoding="utf-8"?>
 <mlt version="7.0.0">
   <profile description="HD 1080p 25fps" width="1920" height="1080"
@@ -172,7 +270,7 @@ describe("exportToKdenlive – transition a_track", () => {
       const service = Array.from(t.querySelectorAll("property")).find(
         (p) => p.getAttribute("name") === "mlt_service"
       );
-      return service?.textContent === "qtblend";
+      return service?.textContent === "frei0r.cairoblend";
     });
 
     const getVal = (t: Element, name: string) =>
@@ -181,6 +279,6 @@ describe("exportToKdenlive – transition a_track", () => {
         ?.textContent ?? null;
 
     const aTrack = parseInt(getVal(scoreTransition!, "a_track") ?? "-1", 10);
-    expect(aTrack).toBeGreaterThanOrEqual(0);
+    expect(aTrack).toBe(0);
   });
 });

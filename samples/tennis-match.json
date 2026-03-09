@@ -1,0 +1,1117 @@
+{
+  "version": 1,
+  "video": {
+    "name": "anthony-sun-full-fast.mp4",
+    "duration_s": 4065.194467,
+    "fps_hint": 30
+  },
+  "match": {
+    "playerA": "Anthony",
+    "playerB": "Sun",
+    "bestOf": 2,
+    "gamesPerSet": 6,
+    "tiebreakAt": 6,
+    "tiebreakPoints": 7,
+    "serverFirst": "A"
+  },
+  "events": [
+    {
+      "id": "9afd2018-d3e3-4299-a818-57ccf42928fd",
+      "t_s": 44.576478,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "0551cffe-ed82-4eff-a6b0-2fc10b101179",
+      "t_s": 67.421713,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "d4591815-1a58-493a-8ed1-113125b43f47",
+      "t_s": 125.258544,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "caf2737a-e78b-4b79-9e14-553d68ff8ad1",
+      "t_s": 139.374209,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "a9c384b8-69c5-4786-b98c-ac170960812a",
+      "t_s": 163.026372,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "cf6b291c-abf5-4b45-88bd-b7e160a94e11",
+      "t_s": 186.424508,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "a83b3e3e-db52-43d7-bc16-3058231736c5",
+      "t_s": 202.88688,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "f0483ac0-f439-433f-84d3-2a8721ffe36b",
+      "t_s": 234.250003,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "418a2814-5911-425d-b072-9e29540a4c73",
+      "t_s": 251.794599,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "2abde301-ce6c-47c9-80b5-9e5581ef59c7",
+      "t_s": 259.306963,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "7eda8025-ba93-428b-8922-eccf2d34297d",
+      "t_s": 287.55924,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "95ddded1-5126-462c-a84a-5f7355591f58",
+      "t_s": 301.522373,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "3fb40a64-61c2-460f-be53-bf1aba5cf589",
+      "t_s": 312.466902,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "4ba4ad02-31fa-4aae-8034-cf991fdcae47",
+      "t_s": 345.049007,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "79ebd141-7432-4449-882d-15db0553ade8",
+      "t_s": 357.856645,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "b8ccde21-c921-4896-8776-aed40b69c232",
+      "t_s": 373.678694,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "a8e10e69-ade5-41b9-bc2f-4b284a6a222f",
+      "t_s": 399.469739,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "8fc4e7f9-0623-4f4e-a0e6-009084aa3e97",
+      "t_s": 423.228563,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "21a0ebed-a0b6-4663-bf9d-9bf3fbd8aa9b",
+      "t_s": 438.646679,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "1241875b-b8d6-48dd-9bc4-1fd3b28d3c48",
+      "t_s": 459.649813,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "39810f22-321b-4c82-a095-1365d6accca3",
+      "t_s": 475.585531,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "0a148768-2fb3-4370-9526-0d9a5dedc79a",
+      "t_s": 486.209562,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "bce4a9b6-65e0-4639-9246-71240fd8c003",
+      "t_s": 496.056421,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "ffb6494d-18cb-4c79-95a4-1c3b33b75c6c",
+      "t_s": 517.319008,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "c66c5828-b372-4cd5-be17-b64e714e4707",
+      "t_s": 543.349653,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "5aaf4738-1f6d-486d-8d86-bb30257f7c53",
+      "t_s": 557.510616,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "ee23425d-719d-478f-919c-06a04344d115",
+      "t_s": 566.288107,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "a62a1626-242e-419e-84a1-ca0ad7c99804",
+      "t_s": 613.172299,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "9e19e5e8-efa7-4466-bb55-ac12f7610fc5",
+      "t_s": 645.341236,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "c360275d-7a0a-4cb2-89c8-62305e4a4968",
+      "t_s": 654.902386,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "bc8b4347-2196-42f3-b748-13ae142a3e3e",
+      "t_s": 673.515863,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "e8c292cd-baa7-463a-ab1e-a16cc9698b39",
+      "t_s": 698.946293,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "7cd9f1c3-388f-4dac-835b-2da7a7f15996",
+      "t_s": 721.539149,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "56405758-ac97-43e3-b628-12d5e5545e35",
+      "t_s": 729.787658,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "a487946e-a01f-426b-aa03-3ca9c8ab49c8",
+      "t_s": 746.785236,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "26c666df-2a8e-48d6-b8f2-e800e23b3797",
+      "t_s": 762.206954,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "f3d13fd3-7fdf-48da-b85f-229372a16cd0",
+      "t_s": 796.558453,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "48506b3a-c6db-4aef-a169-48d12ae9f379",
+      "t_s": 810.628493,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "7485969b-58e4-49e8-86ba-fdab7a634ae0",
+      "t_s": 825.536342,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "75a56e79-1258-4a71-90a9-ea6784ab5d7a",
+      "t_s": 845.210766,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "a57de805-37a9-4c16-b328-b01be89f9d13",
+      "t_s": 862.480634,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "22b8c5f4-d173-419c-ae51-60965a7bb175",
+      "t_s": 871.314455,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "799d1b73-96eb-43b6-a631-3d2ae1a0daf3",
+      "t_s": 884.858571,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "0a38021c-396a-45c2-9a73-8cd93e8c97b3",
+      "t_s": 910.625485,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "67f229c7-5316-4108-89f5-3a06e3d3038e",
+      "t_s": 934.810911,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "82ad872e-8a4d-493c-bdcd-560bcd04ba28",
+      "t_s": 944.55799,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "57fcd88a-d97d-474c-876d-fcfd6b3e05d0",
+      "t_s": 961.957925,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "003e69ec-0e94-4ebe-82f5-1ee6c4897896",
+      "t_s": 969.044102,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "8215f225-e004-4864-9941-1c1da5ef4520",
+      "t_s": 1007.84786,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "80edefa5-76a1-4c1b-a313-7947a984d7e8",
+      "t_s": 1022.987686,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "bb2bce27-fda0-4cdd-9b91-5d07f8fb905e",
+      "t_s": 1033.361659,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "16c9391a-d238-495a-bb0c-857a61e6e15f",
+      "t_s": 1040.268989,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "c5b0a294-4aee-4e34-828d-0eb5b8786103",
+      "t_s": 1055.242635,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "3b03ceb7-5398-418e-b765-0468fa2e55bc",
+      "t_s": 1064.388151,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "ebb6e41d-ab06-4f1e-bad2-7f1785446e9c",
+      "t_s": 1078.769108,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "896adcb0-9b64-4f5d-a46d-77fdd70cf317",
+      "t_s": 1097.624258,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "23402116-67e5-4d6b-843c-2d94b7b946fd",
+      "t_s": 1126.326047,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "636ac63c-1c3f-4bac-ab3f-e42f3aaa1002",
+      "t_s": 1151.846321,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "2c8ff534-4b99-46a1-a4f5-a3323b6193ed",
+      "t_s": 1164.859138,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "34e8a703-d8e9-4da0-8944-59aef3f52932",
+      "t_s": 1187.08435,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "8a2897ec-f3b9-4dae-a38f-137988ef07f4",
+      "t_s": 1202.341592,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "3befa06d-6627-4512-8725-bee6b7b8aa1a",
+      "t_s": 1208.976782,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "64698c0c-af77-43e1-ac23-3a572dcc7224",
+      "t_s": 1229.342896,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "51a31f2f-b8f7-4458-9f77-014b36458cde",
+      "t_s": 1247.254985,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "352d7c95-a09c-4bc2-8b59-5ff54af833e9",
+      "t_s": 1274.808172,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "8d1f6387-5932-44d0-94ac-285cedded6e1",
+      "t_s": 1300.941269,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "09bea39f-04e3-447f-b4d7-0e351bebf4f0",
+      "t_s": 1309.550874,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "eec1f535-e350-4efb-a6cd-d9b8c47fde37",
+      "t_s": 1330.45279,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "0c324df9-f47e-43fb-9f5a-1fb473a4be00",
+      "t_s": 1343.503094,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "8db02328-d34c-4471-ab58-31ced0048c3b",
+      "t_s": 1353.729474,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "02e7c14e-553f-4642-b88b-37e8afd1f124",
+      "t_s": 1366.675388,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "c74bd308-3d55-4438-903f-eabe9cfacec9",
+      "t_s": 1379.791729,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "32e34230-aa69-4b00-be6c-a18cd649df84",
+      "t_s": 1406.581408,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "ebf9327a-c69b-43de-91e2-509123246a80",
+      "t_s": 1448.343454,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "5a3f1795-26f7-4c30-a0e5-f20eb36bb63c",
+      "t_s": 1460.288206,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "0c640ee5-7704-4b47-b94c-468277f9ea7b",
+      "t_s": 1467.192505,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "b682c8d8-6eb0-4474-87e4-87c98b9d1afa",
+      "t_s": 1482.614358,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "386f76a6-c4cb-4b9b-85b3-260ec5947003",
+      "t_s": 1515.108755,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "a9753d0c-a443-4ad8-8b72-5091ab915ce0",
+      "t_s": 1550.678687,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "cf1e67e7-401b-4fe8-b9ea-00520d95f290",
+      "t_s": 1575.142448,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "c599b230-644d-40df-a396-456818e24565",
+      "t_s": 1586.023491,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "b485424c-13f5-4704-a92b-908b0703a17a",
+      "t_s": 1602.551254,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "30a625d3-3057-45a0-96e2-74d88d341556",
+      "t_s": 1613.315033,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "44d85038-16f1-4a99-baf8-9625a2af52df",
+      "t_s": 1646.508992,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "b356d86d-2344-42a3-8001-62c6415416da",
+      "t_s": 1663.758882,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "7516030a-56e7-4310-92c5-9107fae2798f",
+      "t_s": 1686.18294,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "1ba4ea05-4e77-4042-b76a-c967b6718c09",
+      "t_s": 1702.232926,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "be870f8d-522c-4ca7-b6e2-1fb84cb97dca",
+      "t_s": 1724.617069,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "3cacf85c-4a65-4de6-94de-18f8acad0ada",
+      "t_s": 1755.253536,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "95fbe707-6db5-42ac-8b22-8891dbca2c91",
+      "t_s": 1785.243958,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "197e8ee9-f513-412c-9c3a-eb169a495ef9",
+      "t_s": 1807.023961,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "b92f1230-5b3f-4532-8456-fd793d246ced",
+      "t_s": 1829.324393,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "861792ed-ebdf-4dce-80bd-39240c91fd45",
+      "t_s": 1846.320456,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "5831650c-c5a0-4c57-bf8f-4874014eaee0",
+      "t_s": 1858.292155,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "97b0996f-d292-4a0c-a699-63dba433f944",
+      "t_s": 1895.760687,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "72280223-1ab6-481a-9ffd-73678dce8e84",
+      "t_s": 1907.398898,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "600cc306-9006-4080-8873-8c95f5afd1a4",
+      "t_s": 1918.190828,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "82d4ad9d-a325-4054-a01f-64dac2689228",
+      "t_s": 1952.517308,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "736359cc-d872-4eea-a446-698516153cdd",
+      "t_s": 1981.087028,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "cee8c7d5-4de0-4f5e-8783-1dd2b4a70ff6",
+      "t_s": 1997.689332,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "9c337cb3-b7be-48cc-b545-8eb6a69541b0",
+      "t_s": 2007.773334,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "f053fb55-854a-4aa1-90b1-fbccedd6d800",
+      "t_s": 2044.450905,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "cd21f74f-b21b-481e-a336-422b1d2feafd",
+      "t_s": 2082.690535,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "90a1ee4b-da9d-48e6-a70a-8e492a5a49c6",
+      "t_s": 2098.897079,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "6f6d8d61-c753-4806-8bae-fb01c82cea26",
+      "t_s": 2112.440386,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "eac26c42-caa6-466e-81e2-86728e13af17",
+      "t_s": 2128.253617,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "485fc1b5-8e06-46f2-b4e2-a18bf141a731",
+      "t_s": 2137.817759,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "474cdcdb-6679-40ea-8559-364217023662",
+      "t_s": 2164.119668,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "13c68745-a4a6-49df-8d31-40f61e85bdc9",
+      "t_s": 2182.35772,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "cfa8bcba-52c2-427d-8a04-00c8eff1eda3",
+      "t_s": 2189.887737,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "0787b927-24d9-43be-9b35-fe0dfcf9b5ef",
+      "t_s": 2219.686603,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "dcd75586-2dfc-4697-8070-6e0fc8cd9aa4",
+      "t_s": 2228.52709,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "29317614-4ff5-4690-a1ea-a76e9f4ec313",
+      "t_s": 2253.795006,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "ace0027d-4148-4cb1-85cf-112d27577e84",
+      "t_s": 2266.399057,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "aaa964b8-c936-4bb2-9ef6-18585edb42b6",
+      "t_s": 2283.71342,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "677184ba-d9f5-486a-898f-b1d3341ef08d",
+      "t_s": 2312.027689,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "29f63fcb-162c-4ca4-8ca7-928cc0e0445e",
+      "t_s": 2329.825811,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "dd6ca559-ee03-4400-b134-26b82e911ea3",
+      "t_s": 2350.044097,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "a691d67f-cbe3-4667-9255-5ed8c9610000",
+      "t_s": 2375.819732,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "d8b24fda-3465-4451-82af-d34199af734c",
+      "t_s": 2393.370066,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "38caccaf-1690-4dd0-bf6e-203bff8f0936",
+      "t_s": 2405.0633,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "4cc9a41f-266c-4d1b-8c1f-03ec2d3f9815",
+      "t_s": 2412.9418,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "cd6403e9-549f-474f-b298-7f9897912498",
+      "t_s": 2419.771905,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "eb3785a0-e9dc-42ad-bd7a-d8ae82b006ee",
+      "t_s": 2428.775701,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "1d39f447-a52a-43c2-b442-573dd3d0e3d9",
+      "t_s": 2463.63614,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "e771eef6-c626-4616-bb31-98ec61613cc8",
+      "t_s": 2475.416512,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "72febad2-4cb2-4c1e-9b9c-163f289b8a8b",
+      "t_s": 2490.990206,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "319c4eff-9e87-40ac-aaaa-4f9cc1ffed14",
+      "t_s": 2512.864325,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "b4ead96d-dd2a-462e-8c5e-39a757344831",
+      "t_s": 2526.838852,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "68daaf08-85a3-40ef-9e83-0566307c578a",
+      "t_s": 2539.776365,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "7d5d8e97-7d84-4148-8866-6d4714489dd9",
+      "t_s": 2566.590723,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "dd977d7b-c1e4-4d68-95a4-67d7f2905120",
+      "t_s": 2586.196892,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "812597ac-5179-4685-9189-925cbec1d3ec",
+      "t_s": 2604.484922,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "85923c0c-89d9-4835-83ba-0a8eada74079",
+      "t_s": 2618.138842,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "d89a469c-58c5-4b89-a6ce-9a42fd1b66d5",
+      "t_s": 2633.071177,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "c29e8518-9ce3-4221-9b62-ad3800f322c5",
+      "t_s": 2663.629146,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "f232629e-62e4-479a-862f-4e581ec41e87",
+      "t_s": 2694.792104,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "a94c434a-037e-4198-8b80-a7bd9d9c65b2",
+      "t_s": 2718.793938,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "3c5e3118-5a48-43a0-ae70-ed77ae9f0a32",
+      "t_s": 2744.826313,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "d0e89b0e-db47-45ec-820b-70f00ae74bf5",
+      "t_s": 2772.148492,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "a06298e5-63c8-4d6d-a373-90858a77c7df",
+      "t_s": 2790.049547,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "9ec9ff2b-a384-4d73-adc4-b5249733a601",
+      "t_s": 2813.438048,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "8e3ff0ec-da22-4409-ae5a-32bf66ce697b",
+      "t_s": 2829.909559,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "247faa9f-f249-45d6-b99c-e7d11907116e",
+      "t_s": 2855.70476,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "bf25a716-e4ac-4cb6-8210-2a23bcf16c4d",
+      "t_s": 2882.577532,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "f154bfa1-c6cc-497c-aac9-340146a88c8c",
+      "t_s": 2907.322737,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "6d5388b8-f945-4a97-a9da-168837c991a3",
+      "t_s": 2929.286724,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "22b93b4c-5ffa-4724-8ac3-90dd54544aa5",
+      "t_s": 2948.147248,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "60d86aee-7ae7-4159-b1f5-e0aac5607258",
+      "t_s": 2955.05114,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "7ebf68a6-3068-4dd8-babd-30661a8779e2",
+      "t_s": 2970.217525,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "115052c5-428e-4fb8-992b-e886a2a83405",
+      "t_s": 2979.503807,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "9bf505ae-11fe-4ffa-b701-03dd005c96fd",
+      "t_s": 2992.816557,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "76e03886-67c7-4ec9-a096-616914894e22",
+      "t_s": 3010.645076,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "1aa03b34-197c-4caf-a25c-89860dd23f5a",
+      "t_s": 3030.582962,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "a3dcf0fa-ae71-4eb8-b1e1-108028ea1b00",
+      "t_s": 3063.008845,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "73ddae39-e8b4-4f3b-b82a-82a909a6b80f",
+      "t_s": 3070.973001,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "99b93e43-a9d8-482e-abdf-7078997f6dd2",
+      "t_s": 3082.942767,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "35b76141-792e-447a-8c8e-18f1a48503cd",
+      "t_s": 3103.395158,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "711a44c4-8cdf-4c6a-8b58-53d9d7b39426",
+      "t_s": 3116.453036,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "715c7531-0075-439a-95f7-d4fa85ead4af",
+      "t_s": 3125.485781,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "9c1b4a32-ea09-43ee-85bd-44fdfb562bfe",
+      "t_s": 3140.349124,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "d42c950f-0a95-45f5-866c-284ae609f7bc",
+      "t_s": 3161.615661,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "0b177987-0bf0-4e7d-9d87-d27d8d7426d1",
+      "t_s": 3186.349215,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "20596ee3-6737-40c7-815e-bbd6820a1272",
+      "t_s": 3211.112391,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "b8a0f08a-3eca-4711-8a8a-95a494c0d51d",
+      "t_s": 3231.849339,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "12a4c063-9855-4c60-b2f3-d66e0e1c34a8",
+      "t_s": 3265.600421,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "e94ccc5e-b2ca-4d8c-81ee-13f59d3bf0a2",
+      "t_s": 3273.566178,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "3d4b69be-0e80-45de-b1d1-71fcdccf7357",
+      "t_s": 3288.174584,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "265245ea-6128-4ece-b8c6-343d3cff96be",
+      "t_s": 3298.004442,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "2f6e18b6-d88b-42be-8886-75c7901f3ff7",
+      "t_s": 3309.194511,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "e5425fec-1a16-4610-8814-bdf97399101e",
+      "t_s": 3315.833455,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "ba445e9e-fd01-4ad2-8154-341306037146",
+      "t_s": 3340.018482,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "ad67f737-d35d-4ccf-88af-cf6d10740f48",
+      "t_s": 3360.76776,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "97f6a2f8-2c3b-4403-a975-d8d0a939b33c",
+      "t_s": 3377.256101,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "f56edcd4-43a1-44f1-ac9e-7ace9e454ce4",
+      "t_s": 3394.799289,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "7e5576eb-0cb9-482f-9215-757ac2dec130",
+      "t_s": 3421.647716,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "4a896953-bc2a-4cc4-b7b1-3cc858c24cff",
+      "t_s": 3454.330961,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "cd12e7c9-c829-4bb5-bfcc-ee8a32de4e1e",
+      "t_s": 3467.877712,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "4ad50c11-c685-4675-93bc-6cdbe87ce0ff",
+      "t_s": 3476.91204,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "8dd9463a-0bd3-48b7-86a7-bc5c9964f48f",
+      "t_s": 3489.143913,
+      "type": "point",
+      "winner": "A"
+    },
+    {
+      "id": "83adea9d-0e1b-45fa-bc88-5f1b38cb8785",
+      "t_s": 3517.878704,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "ccddaaad-4b36-4ba8-bbac-c0e88ac36134",
+      "t_s": 3534.096843,
+      "type": "point",
+      "winner": "B"
+    },
+    {
+      "id": "ffb633ee-c655-4230-935d-b28e352544cb",
+      "t_s": 3552.705358,
+      "type": "point",
+      "winner": "B"
+    }
+  ]
+}

@@ -11,6 +11,7 @@ A static web application for logging tennis match scoring events with video time
 - **Live Scoreboard**: Broadcast-style scoreboard showing sets, games, points, and server indicator
 - **Event List**: Editable table of logged points with computed score after each event; supports timestamp editing and deletion
 - **Export / Import**: Download a `match.json` file or re-import a previously saved project
+- **Kdenlive Export (CLI)**: Generate a `.kdenlive` project with scoreboard overlays from saved match data
 
 ## Data Format
 
@@ -42,3 +43,18 @@ npm run build
 ```
 
 Pushes to `main` automatically deploy to GitHub Pages via the included workflow.
+
+## Kdenlive CLI Export
+
+Generate a scored `.kdenlive` file without opening the web app:
+
+```bash
+npm run kdenlive:generate -- ./samples/tennis-match.json ./samples/anthony-sun-1.kdenlive ./samples/anthony-sun-1-with-scores-cli.kdenlive
+```
+
+Arguments:
+- `state.json`: Exported match state JSON (same format as app export)
+- `input.kdenlive`: Base Kdenlive project
+- `output.kdenlive` (optional): Output filename; if omitted, `-with-scores.kdenlive` is appended to input name
+
+Sample files are stored in `samples/`.

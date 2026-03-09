@@ -304,6 +304,12 @@ export function exportToKdenlive(
   const mainTractor = findMainTractor(doc);
   const root = mainTractor.parentNode!;
 
+  // --- Locate the Kdenlive project bin so producers can be registered ---
+  // Kdenlive stores the project bin as <playlist id="main_bin">.
+  // Every producer must have an <entry> there; otherwise Kdenlive reports
+  // "Clip … not found in project bin" and treats the project as corrupted.
+  const mainBin = doc.querySelector('playlist[id="main_bin"]');
+
   // --- Create one kdenlivetitle producer per segment ---
   const producerIds: string[] = [];
 
@@ -336,6 +342,15 @@ export function exportToKdenlive(
     // Insert each producer just before the main tractor
     root.insertBefore(producer, mainTractor);
     producerIds.push(id);
+
+    // Register this producer in the project bin so Kdenlive can find it
+    if (mainBin) {
+      const binEntry = doc.createElement("entry");
+      binEntry.setAttribute("producer", id);
+      binEntry.setAttribute("in", "0");
+      binEntry.setAttribute("out", String(durationFrames - 1));
+      mainBin.appendChild(binEntry);
+    }
   }
 
   // --- Build a playlist that assembles the segments in timeline order ---
@@ -377,9 +392,12 @@ export function exportToKdenlive(
       .length - 1;
 
   // --- Add a composite transition so the score overlay renders on top ---
+  // a_track must be the track directly below b_track (not track 0 / the
+  // black background) to avoid Kdenlive's "Invalid composition" warning.
+  const aTrack = Math.max(trackIndex - 1, 0);
   const transition = doc.createElement("transition");
   setProp(doc, transition, "mlt_service", "qtblend");
-  setProp(doc, transition, "a_track", "0");
+  setProp(doc, transition, "a_track", String(aTrack));
   setProp(doc, transition, "b_track", String(trackIndex));
   setProp(doc, transition, "compositing", "0");
   setProp(doc, transition, "distort", "0");

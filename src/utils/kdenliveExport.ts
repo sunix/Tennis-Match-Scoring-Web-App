@@ -143,14 +143,18 @@ const SCORE_TITLE_TEMPLATE = `<kdenlivetitle LC_NUMERIC="C" duration="250" heigh
 
 /**
  * Y-coordinate of the Player1 name row in the embedded template (z-index=14).
- * Used to compute the row offset when moving the serve-indicator bullet.
  */
 const TEMPLATE_PLAYER1_ROW_Y = 1890;
 /**
  * Y-coordinate of the Player2 name row in the embedded template (z-index=10).
  */
 const TEMPLATE_PLAYER2_ROW_Y = 1958;
-/** Pixel distance between player rows in the template. */
+/**
+ * Pixel distance between the two player rows in the template.
+ * Both the player-name items and the serve-indicator bullet maintain the same
+ * vertical gap between row 1 and row 2, so this single offset can be applied
+ * to the bullet Y to move it from the Player1 row to the Player2 row.
+ */
 const TEMPLATE_ROW_OFFSET = TEMPLATE_PLAYER2_ROW_Y - TEMPLATE_PLAYER1_ROW_Y; // 68
 /** Y-coordinate of the serve-indicator bullet in the template (z-index=15). */
 const TEMPLATE_BULLET_Y = 1887;

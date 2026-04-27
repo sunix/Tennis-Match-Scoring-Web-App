@@ -282,3 +282,168 @@ describe("exportToKdenlive – transition a_track", () => {
     expect(aTrack).toBe(0);
   });
 });
+
+// ── New Kdenlive format (≥7.37, chain-based) ─────────────────────────────────
+
+/**
+ * Minimal Kdenlive 7.37+ XML.
+ * Key differences from the old format:
+ *  - Uses <chain> elements for media clips (triggers "new format" detection)
+ *  - The projectTractor (tractor1) wraps the sequence tractor (tractor0)
+ *  - The sequence tractor has kdenlive:sequenceproperties.tracks
+ *  - main_bin playlist is at the end of the document
+ */
+function makeNewKdenliveXml(): string {
+  return `<?xml version="1.0" encoding="utf-8"?>
+<mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" version="7.37.0">
+ <profile description="4K UHD 2160p 59.94 fps" frame_rate_den="1001" frame_rate_num="60000" height="2160" progressive="1" width="3840"/>
+ <chain id="chain0" out="00:01:00.000">
+  <property name="length">3602</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:id">4</property>
+ </chain>
+ <producer id="producer0" in="00:00:00.000" out="00:30:00.000">
+  <property name="mlt_service">color</property>
+  <property name="kdenlive:id">1</property>
+ </producer>
+ <playlist id="playlist0"/>
+ <playlist id="playlist1"/>
+ <tractor id="tractor0" in="00:00:00.000" out="01:00:00.000">
+  <property name="kdenlive:sequenceproperties.tracks">2</property>
+  <property name="kdenlive:clipname">Sequence 1</property>
+  <track producer="producer0"/>
+  <track hide="audio" producer="playlist0"/>
+  <track hide="audio" producer="playlist1"/>
+  <transition id="transition0">
+   <property name="a_track">0</property>
+   <property name="b_track">1</property>
+   <property name="compositing">0</property>
+   <property name="distort">0</property>
+   <property name="rotate_center">0</property>
+   <property name="mlt_service">qtblend</property>
+   <property name="kdenlive_id">qtblend</property>
+   <property name="internal_added">237</property>
+   <property name="always_active">1</property>
+  </transition>
+ </tractor>
+ <playlist id="main_bin">
+  <property name="kdenlive:docproperties.documentid">1234</property>
+  <entry in="00:00:00.000" out="01:00:00.000" producer="chain0"/>
+ </playlist>
+ <tractor id="tractor1" in="00:00:00.000" out="01:00:00.000">
+  <property name="kdenlive:projectTractor">1</property>
+  <track in="00:00:00.000" out="01:00:00.000" producer="tractor0"/>
+ </tractor>
+</mlt>`;
+}
+
+describe("exportToKdenlive – new Kdenlive format (≥7.37)", () => {
+  it("detects new format and uses qtblend composite transition", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    const doc = parseXml(result);
+
+    const transitions = Array.from(doc.querySelectorAll("transition"));
+    const scoreTransition = transitions.find((t) => {
+      const service = Array.from(t.querySelectorAll("property")).find(
+        (p) => p.getAttribute("name") === "mlt_service"
+      );
+      return service?.textContent === "qtblend";
+    });
+    // Should use qtblend, not frei0r.cairoblend
+    expect(scoreTransition).not.toBeUndefined();
+
+    const frei0rTransition = transitions.find((t) => {
+      const service = Array.from(t.querySelectorAll("property")).find(
+        (p) => p.getAttribute("name") === "mlt_service"
+      );
+      return service?.textContent === "frei0r.cairoblend";
+    });
+    expect(frei0rTransition).toBeUndefined();
+  });
+
+  it("adds score producers before the first playlist element", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    const doc = parseXml(result);
+
+    const firstScoreProducer = doc.querySelector("producer[id^='kdenlive_scores_producer_']");
+    const firstPlaylist = doc.querySelector("playlist");
+
+    expect(firstScoreProducer).not.toBeNull();
+    expect(firstPlaylist).not.toBeNull();
+
+    // The score producer must come before any playlist
+    const pos = firstScoreProducer!.compareDocumentPosition(firstPlaylist!);
+    expect((pos & Node.DOCUMENT_POSITION_FOLLOWING) !== 0).toBe(true);
+  });
+
+  it("wraps the score playlist in a sub-tractor for the new format", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    const doc = parseXml(result);
+
+    // Score tractor should exist
+    const scoreTractor = doc.querySelector('tractor[id="tractor_kdenlive_scores"]');
+    expect(scoreTractor).not.toBeNull();
+
+    // Score tractor should reference the score playlist via a track element
+    const scoreTrack = Array.from(
+      scoreTractor!.querySelectorAll("track")
+    ).find((t) => t.getAttribute("producer") === "playlist_kdenlive_scores");
+    expect(scoreTrack).not.toBeUndefined();
+  });
+
+  it("adds score sub-tractor as a track in the sequence tractor", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    const doc = parseXml(result);
+
+    // The sequence tractor (tractor0) should reference tractor_kdenlive_scores
+    const sequenceTractor = doc.querySelector(
+      'tractor[id="tractor0"]'
+    );
+    expect(sequenceTractor).not.toBeNull();
+
+    const scoreTrack = Array.from(
+      sequenceTractor!.querySelectorAll(":scope > track")
+    ).find((t) => t.getAttribute("producer") === "tractor_kdenlive_scores");
+    expect(scoreTrack).not.toBeUndefined();
+  });
+
+  it("registers score producers in the main_bin", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    const doc = parseXml(result);
+
+    const mainBin = doc.querySelector('playlist[id="main_bin"]');
+    expect(mainBin).not.toBeNull();
+
+    const scoreEntries = Array.from(mainBin!.querySelectorAll("entry")).filter(
+      (e) => (e.getAttribute("producer") ?? "").startsWith("kdenlive_scores_producer_")
+    );
+    expect(scoreEntries.length).toBeGreaterThan(0);
+  });
+
+  it("uses the template-based title content (contains kdenlivetitle with z-index)", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    // Template uses z-index (not z-value used by the programmatic builder)
+    expect(result).toContain("z-index=");
+  });
+
+  it("assigns a unique transition id (new format convention)", () => {
+    const result = exportToKdenlive(buildAppState(), makeNewKdenliveXml());
+    const doc = parseXml(result);
+
+    // All transitions in the sequence tractor should have id attributes
+    const sequenceTractor = doc.querySelector('tractor[id="tractor0"]')!;
+    const transitions = Array.from(sequenceTractor.querySelectorAll("transition"));
+    const scoreTransition = transitions.find((t) => {
+      const service = Array.from(t.querySelectorAll("property")).find(
+        (p) => p.getAttribute("name") === "mlt_service"
+      );
+      return service?.textContent === "qtblend" &&
+        Array.from(t.querySelectorAll("property")).some(
+          (p) => p.getAttribute("name") === "b_track" &&
+                 parseInt(p.textContent ?? "0", 10) > 0
+        );
+    });
+    expect(scoreTransition).not.toBeUndefined();
+    expect(scoreTransition!.getAttribute("id")).toMatch(/^transition\d+$/);
+  });
+});

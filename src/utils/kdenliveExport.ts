@@ -10,11 +10,150 @@ import { computeState, getInitialState, pointLabel } from "../engine/scoring";
  * and properly registers them in the project bin to avoid corruption errors.
  * 
  * Key features:
+ * - Supports both legacy (≤7.10) and modern (≥7.37) Kdenlive formats
+ * - Legacy format: frei0r.cairoblend composite, playlist-based score track
+ * - Modern format: qtblend composite, tractor-based score track, chain detection
+ * - Template-based title content using score_tennis_compact_4k.kdenlivetitle
  * - Robust project bin detection (supports multiple Kdenlive versions)
  * - Automatic bin creation if missing
- * - Enhanced producer properties for maximum compatibility
  * - Debug utilities for troubleshooting bin issues
  */
+
+// ── Embedded kdenlivetitle template ──────────────────────────────────────────
+
+/**
+ * Embedded content of score_tennis_compact_4k.kdenlivetitle.
+ * This template is designed for 4K (3840×2160) and contains named placeholder
+ * text items: Player1, Player2, S1, S2, G1, G2, P1, P2.
+ * The ● bullet at z-index=15 acts as the serve indicator for Player1's row.
+ */
+const SCORE_TITLE_TEMPLATE = `<kdenlivetitle LC_NUMERIC="C" duration="250" height="2160" out="250" width="3840">
+ <item type="QGraphicsTextItem" z-index="19">
+  <position x="168" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="95" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Players</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="18">
+  <position x="584" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="56" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Sets</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="17">
+  <position x="766" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="90" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Games</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="16">
+  <position x="948" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="80" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Points</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="15">
+  <position x="132" y="1887">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="46" box-width="23" font="DejaVu Sans" font-color="255,221,0,255" font-italic="0" font-pixel-size="38" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">●</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="14">
+  <position x="168" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="48" box-width="129" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="13">
+  <position x="584" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="49" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="12">
+  <position x="766" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="53" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="11">
+  <position x="948" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="48" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="10">
+  <position x="168" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="48" box-width="129" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player2</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="9">
+  <position x="584" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="49" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S2</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="8">
+  <position x="766" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="53" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G2</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="7">
+  <position x="948" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="48" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P2</content>
+ </item>
+ <item type="QGraphicsRectItem" z-index="6">
+  <position x="93" y="1884">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,986,2"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="5">
+  <position x="554" y="1858">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,2,151"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="4">
+  <position x="736" y="1858">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,2,151"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="3">
+  <position x="918" y="1858">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,2,151"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="0">
+  <position x="99" y="1821">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="30,30,30,191" pencolor="0,0,0,255" penwidth="0" rect="0,0,986,205"/>
+ </item>
+ <startviewport rect="0,0,3840,2160"/>
+ <endviewport rect="0,0,3840,2160"/>
+ <background color="0,0,0,0"/>
+</kdenlivetitle>`;
+
+/**
+ * Y-coordinate of the Player1 name row in the embedded template (z-index=14).
+ * Used to compute the row offset when moving the serve-indicator bullet.
+ */
+const TEMPLATE_PLAYER1_ROW_Y = 1890;
+/**
+ * Y-coordinate of the Player2 name row in the embedded template (z-index=10).
+ */
+const TEMPLATE_PLAYER2_ROW_Y = 1958;
+/** Pixel distance between player rows in the template. */
+const TEMPLATE_ROW_OFFSET = TEMPLATE_PLAYER2_ROW_Y - TEMPLATE_PLAYER1_ROW_Y; // 68
+/** Y-coordinate of the serve-indicator bullet in the template (z-index=15). */
+const TEMPLATE_BULLET_Y = 1887;
 
 export interface ScoreSegment {
   startFrame: number;
@@ -210,6 +349,80 @@ export function buildTitleContent(
   );
 }
 
+/**
+ * Build the kdenlivetitle XML string for the given match state using the
+ * embedded `score_tennis_compact_4k.kdenlivetitle` template.
+ *
+ * The template placeholders are replaced:
+ *   Player1 → playerA name, Player2 → playerB name,
+ *   S1/S2 → sets, G1/G2 → games, P1/P2 → point labels.
+ * The serve-indicator bullet (z-index=15) is repositioned to the correct
+ * player row.
+ *
+ * @param state          Current match state.
+ * @param config         Match configuration.
+ * @param durationFrames Duration of this clip in frames.
+ */
+export function buildTitleContentFromTemplate(
+  state: MatchState,
+  config: MatchConfig,
+  durationFrames: number
+): string {
+  const outFrame = Math.max(durationFrames - 1, 0);
+
+  const esc = (s: string) =>
+    s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  // --- Per-player point labels ---
+  let pointA = "";
+  let pointB = "";
+  if (!state.matchWinner) {
+    if (state.tbA !== null && state.tbB !== null) {
+      pointA = `TB ${state.tbA}`;
+      pointB = `TB ${state.tbB}`;
+    } else {
+      pointA = pointLabel(state.pointA, state.pointB);
+      pointB = pointLabel(state.pointB, state.pointA);
+    }
+  } else {
+    if (state.matchWinner === "A") pointA = "Winner";
+    else pointB = "Winner";
+  }
+
+  let xml = SCORE_TITLE_TEMPLATE;
+
+  // Update duration / out on the <kdenlivetitle> root element
+  xml = xml.replace(/(<kdenlivetitle\b[^>]*?\s)duration="[^"]*"/, `$1duration="${durationFrames}"`);
+  xml = xml.replace(/(<kdenlivetitle\b[^>]*?\s)out="[^"]*"/, `$1out="${outFrame}"`);
+
+  // Replace placeholder text content
+  xml = xml.replace(/>Player1<\/content>/, `>${esc(config.playerA)}</content>`);
+  xml = xml.replace(/>Player2<\/content>/, `>${esc(config.playerB)}</content>`);
+  xml = xml.replace(/>S1<\/content>/, `>${String(state.setA)}</content>`);
+  xml = xml.replace(/>S2<\/content>/, `>${String(state.setB)}</content>`);
+  xml = xml.replace(/>G1<\/content>/, `>${String(state.gameA)}</content>`);
+  xml = xml.replace(/>G2<\/content>/, `>${String(state.gameB)}</content>`);
+  xml = xml.replace(/>P1<\/content>/, `>${esc(pointA)}</content>`);
+  xml = xml.replace(/>P2<\/content>/, `>${esc(pointB)}</content>`);
+
+  // Reposition the serve-indicator bullet (z-index=15) to the correct player row.
+  // The template places it on Player1's row (y=TEMPLATE_BULLET_Y).
+  // When Player2 is serving, shift it down by TEMPLATE_ROW_OFFSET.
+  if (state.server === "B") {
+    const newY = TEMPLATE_BULLET_Y + TEMPLATE_ROW_OFFSET;
+    // Match the position element inside the z-index=15 item and change its y attribute.
+    xml = xml.replace(
+      /(z-index="15"[\s\S]*?<position\s[^>]*?)y="(\d+)"/,
+      `$1y="${newY}"`
+    );
+  }
+
+  return xml;
+}
+
 /** Seconds added after the last event when no video duration is known. */
 const DEFAULT_BUFFER_SECONDS = 30;
 /** Default timeline duration (seconds) when there are no events and no video. */
@@ -347,6 +560,55 @@ function nextKdenliveClipId(doc: Document): number {
   return maxId + 1;
 }
 
+/**
+ * Return `true` when the document was saved by Kdenlive ≥ 7.37 (or any version
+ * that uses `<chain>` elements for media clips instead of `<producer>`).
+ * In this "new" format the score overlay track must be wrapped in a sub-tractor
+ * and the composite transition must be `qtblend` rather than `frei0r.cairoblend`.
+ */
+export function isNewKdenliveFormat(doc: Document): boolean {
+  return doc.querySelector("chain") !== null;
+}
+
+/**
+ * Find the actual sequence (timeline) tractor in a Kdenlive document.
+ *
+ * Modern Kdenlive (≥7.37) wraps the timeline in two levels:
+ *   tractor5 (projectTractor=1) → tractor4 (sequence, has sequenceproperties.*)
+ * Older Kdenlive uses a single tractor with projectTractor=1.
+ *
+ * This function returns the innermost sequence tractor so that tracks and
+ * transitions are added to the correct element.
+ */
+function findSequenceTractor(doc: Document): Element {
+  const tractors = Array.from(doc.querySelectorAll("tractor"));
+
+  // New format: look for a tractor that carries sequence properties
+  const sequenceTractor = tractors.find(
+    (t) => getPropValue(t, "kdenlive:sequenceproperties.tracks") !== null
+  );
+  if (sequenceTractor) return sequenceTractor;
+
+  // Fallback: use the legacy main-tractor finder (old format)
+  return findMainTractor(doc);
+}
+
+/**
+ * Return the next available numeric transition id suffix for new-format
+ * Kdenlive files (e.g. returns 4 when the highest existing id is "transition3").
+ */
+function nextTransitionIndex(doc: Document): number {
+  let max = -1;
+  for (const t of Array.from(doc.querySelectorAll("transition[id]"))) {
+    const m = (t.getAttribute("id") ?? "").match(/^transition(\d+)$/);
+    if (m) {
+      const n = parseInt(m[1], 10);
+      if (n > max) max = n;
+    }
+  }
+  return max + 1;
+}
+
 // ── Main export function ─────────────────────────────────────────────────────
 
 /**
@@ -405,8 +667,14 @@ export function exportToKdenlive(
   // --- Build score segments ---
   const segments = buildScoreSegments(events, config, fps, totalFrames);
 
-  // --- Find insertion point (main tractor) ---
+  // --- Detect format ---
+  const newFormat = isNewKdenliveFormat(doc);
+
+  // --- Find insertion point ---
+  // For new format, the projectTractor is a wrapper; we need the sequence tractor.
+  // For old format, mainTractor is the sequence tractor.
   const mainTractor = findMainTractor(doc);
+  const sequenceTractor = newFormat ? findSequenceTractor(doc) : mainTractor;
   const root = mainTractor.parentElement;
   if (!root) {
     throw new Error("Invalid kdenlive structure: main tractor has no parent element.");
@@ -417,15 +685,25 @@ export function exportToKdenlive(
   // Every producer must have an <entry> there; otherwise Kdenlive reports
   // "Clip … not found in project bin" and treats the project as corrupted.
   let mainBin = findProjectBin(doc);
-  
+
   // If no bin exists, create one
   if (!mainBin) {
     mainBin = createProjectBin(doc, root);
   }
 
-  // Keep score producers in the producer block before the project bin when possible.
-  // Some Kdenlive versions are strict about this ordering while resolving bin entries.
-  const producerInsertAnchor = mainBin ?? mainTractor;
+  // --- Choose the anchor for producer insertion ---
+  // For new-format files (chain-based), producers must come before playlists/tractors.
+  // For legacy files, insert before the bin as before.
+  let producerInsertAnchor: Element;
+  if (newFormat) {
+    // Find the first playlist or tractor child of root to insert producers before it
+    const firstPlaylistOrTractor = Array.from(root.children).find(
+      (c) => c.tagName === "playlist" || c.tagName === "tractor"
+    ) ?? mainBin;
+    producerInsertAnchor = firstPlaylistOrTractor;
+  } else {
+    producerInsertAnchor = mainBin ?? mainTractor;
+  }
 
   // --- Create one kdenlivetitle producer per segment ---
   const producerIds: string[] = [];
@@ -443,35 +721,45 @@ export function exportToKdenlive(
     producer.setAttribute("in", frameToTimecode(0, fps));
     producer.setAttribute("out", frameToTimecode(outFrame, fps));
 
-    const titleXml = buildTitleContent(
-      seg.state,
-      config,
-      width,
-      height,
-      durationFrames
-    );
+    // Build title XML: use the embedded template for new-format files (optimised for
+    // the correct kdenlivetitle attribute names used by Kdenlive ≥7.37), or fall back
+    // to the programmatic builder for legacy files.
+    const titleXml = newFormat
+      ? buildTitleContentFromTemplate(seg.state, config, durationFrames)
+      : buildTitleContent(seg.state, config, width, height, durationFrames);
 
-    // Match Kdenlive's native title producer shape as closely as possible.
+    // Core producer properties (shared between both formats)
     setProp(doc, producer, "length", String(durationFrames));
     setProp(doc, producer, "eof", "pause");
     setProp(doc, producer, "resource", "");
-    setProp(doc, producer, "progressive", "1");
     setProp(doc, producer, "aspect_ratio", "1");
     setProp(doc, producer, "seekable", "1");
     setProp(doc, producer, "mlt_service", "kdenlivetitle");
-    setProp(doc, producer, "kdenlive:duration", String(durationFrames));
-    setProp(doc, producer, "kdenlive:clipname", `Score segment ${i + 1}`);
-    setProp(doc, producer, "xmldata", titleXml);
-    setProp(doc, producer, "kdenlive:id", clipId);
-    setProp(doc, producer, "kdenlive:folderid", "-1");
     setProp(doc, producer, "kdenlive:clip_type", "2");
     setProp(doc, producer, "force_reload", "0");
+    setProp(doc, producer, "xmldata", titleXml);
+    setProp(doc, producer, "kdenlive:id", clipId);
+    setProp(doc, producer, "kdenlive:clipname", `Score segment ${i + 1}`);
     setProp(doc, producer, "meta.media.width", String(width));
     setProp(doc, producer, "meta.media.height", String(height));
-    setProp(doc, producer, "transparency", "1");
-    setProp(doc, producer, "mlt_type", "producer");
 
-    // Insert each producer before the bin (or before main tractor as fallback).
+    if (newFormat) {
+      // New-format properties (Kdenlive ≥7.37)
+      setProp(doc, producer, "meta.media.progressive", "1");
+      setProp(doc, producer, "kdenlive:duration", frameToTimecode(durationFrames, fps));
+      setProp(doc, producer, "xml", "was here");
+      setProp(doc, producer, "kdenlive:folderid", "-1");
+      setProp(doc, producer, "kdenlive:monitorPosition", "0");
+    } else {
+      // Legacy-format properties (Kdenlive ≤7.10)
+      setProp(doc, producer, "progressive", "1");
+      setProp(doc, producer, "kdenlive:duration", String(durationFrames));
+      setProp(doc, producer, "kdenlive:folderid", "-1");
+      setProp(doc, producer, "transparency", "1");
+      setProp(doc, producer, "mlt_type", "producer");
+    }
+
+    // Insert each producer at the correct position
     root.insertBefore(producer, producerInsertAnchor);
     producerIds.push(id);
 
@@ -480,13 +768,20 @@ export function exportToKdenlive(
     binEntry.setAttribute("producer", id);
     binEntry.setAttribute("in", frameToTimecode(0, fps));
     binEntry.setAttribute("out", frameToTimecode(outFrame, fps));
+    if (!newFormat) {
+      // Legacy format includes the clip id as a child property on the bin entry
+      const clipIdProp = doc.createElement("property");
+      clipIdProp.setAttribute("name", "kdenlive:id");
+      clipIdProp.textContent = clipId;
+      binEntry.appendChild(clipIdProp);
+    }
     mainBin.appendChild(binEntry);
   }
 
-  // --- Build a playlist that assembles the segments in timeline order ---
-  const playlistId = "playlist_kdenlive_scores";
-  const playlist = doc.createElement("playlist");
-  playlist.setAttribute("id", playlistId);
+  // --- Build the score track playlist ---
+  const scorePlaylistId = "playlist_kdenlive_scores";
+  const scorePlaylist = doc.createElement("playlist");
+  scorePlaylist.setAttribute("id", scorePlaylistId);
 
   let cursor = 0;
   for (let i = 0; i < segments.length; i++) {
@@ -496,7 +791,7 @@ export function exportToKdenlive(
     if (seg.startFrame > cursor) {
       const blank = doc.createElement("blank");
       blank.setAttribute("length", String(seg.startFrame - cursor));
-      playlist.appendChild(blank);
+      scorePlaylist.appendChild(blank);
     }
 
     const durationFrames = seg.endFrame - seg.startFrame + 1;
@@ -506,40 +801,98 @@ export function exportToKdenlive(
     entry.setAttribute("in", frameToTimecode(0, fps));
     entry.setAttribute("out", frameToTimecode(outFrame, fps));
 
-    const clipIdProp = doc.createElement("property");
-    clipIdProp.setAttribute("name", "kdenlive:id");
-    clipIdProp.textContent = String(firstGeneratedClipId + i);
-    entry.appendChild(clipIdProp);
+    if (!newFormat) {
+      // Legacy format: include the clip id as a child property
+      const clipIdProp = doc.createElement("property");
+      clipIdProp.setAttribute("name", "kdenlive:id");
+      clipIdProp.textContent = String(firstGeneratedClipId + i);
+      entry.appendChild(clipIdProp);
+    }
 
-    playlist.appendChild(entry);
-
+    scorePlaylist.appendChild(entry);
     cursor = seg.endFrame + 1;
   }
 
-  root.insertBefore(playlist, mainTractor);
+  if (newFormat) {
+    // New format: score track is a sub-tractor with the score playlist +
+    // an empty companion playlist (needed by the Kdenlive tractor-per-track model).
+    const scoreAuxPlaylistId = "playlist_kdenlive_scores_aux";
+    const scoreAuxPlaylist = doc.createElement("playlist");
+    scoreAuxPlaylist.setAttribute("id", scoreAuxPlaylistId);
 
-  // --- Add the playlist as a new track in the main tractor ---
-  const newTrack = doc.createElement("track");
-  newTrack.setAttribute("producer", playlistId);
-  mainTractor.appendChild(newTrack);
+    const scoreTractorId = "tractor_kdenlive_scores";
+    const scoreTractor = doc.createElement("tractor");
+    scoreTractor.setAttribute("id", scoreTractorId);
+    scoreTractor.setAttribute("in", "00:00:00.000");
+    scoreTractor.setAttribute("out", frameToTimecode(totalFrames - 1, fps));
+    setProp(doc, scoreTractor, "kdenlive:trackheight", "67");
+    setProp(doc, scoreTractor, "kdenlive:timeline_active", "1");
+    setProp(doc, scoreTractor, "kdenlive:collapsed", "0");
+    setProp(doc, scoreTractor, "kdenlive:thumbs_format", "");
+    setProp(doc, scoreTractor, "kdenlive:audio_rec", "");
 
-  // The new track's index is the last direct <track> child after appending.
-  const trackIndex =
-    Array.from(mainTractor.children).filter(
-      (c) => c.tagName.toLowerCase() === "track"
-    ).length - 1;
+    const trackVideo = doc.createElement("track");
+    trackVideo.setAttribute("hide", "audio");
+    trackVideo.setAttribute("producer", scorePlaylistId);
+    scoreTractor.appendChild(trackVideo);
 
-  // --- Add a composite transition so the score overlay renders on top ---
-  // Match Kdenlive's native overlay composition style from known-good files.
-  const aTrack = 0;
-  const transition = doc.createElement("transition");
-  setProp(doc, transition, "a_track", String(aTrack));
-  setProp(doc, transition, "b_track", String(trackIndex));
-  setProp(doc, transition, "version", "0.1");
-  setProp(doc, transition, "mlt_service", "frei0r.cairoblend");
-  setProp(doc, transition, "always_active", "1");
-  setProp(doc, transition, "internal_added", "237");
-  mainTractor.appendChild(transition);
+    const trackAux = doc.createElement("track");
+    trackAux.setAttribute("hide", "audio");
+    trackAux.setAttribute("producer", scoreAuxPlaylistId);
+    scoreTractor.appendChild(trackAux);
+
+    // Insert before the bin (which is at the end of the document in new format)
+    root.insertBefore(scorePlaylist, mainBin);
+    root.insertBefore(scoreAuxPlaylist, mainBin);
+    root.insertBefore(scoreTractor, mainBin);
+
+    // Add the score sub-tractor as a new track in the sequence tractor
+    const newTrack = doc.createElement("track");
+    newTrack.setAttribute("producer", scoreTractorId);
+    sequenceTractor.appendChild(newTrack);
+
+    const scoreTrackIndex =
+      Array.from(sequenceTractor.children).filter(
+        (c) => c.tagName.toLowerCase() === "track"
+      ).length - 1;
+
+    // Wire a qtblend composite transition for the new score track
+    const transitionId = `transition${nextTransitionIndex(doc)}`;
+    const transition = doc.createElement("transition");
+    transition.setAttribute("id", transitionId);
+    setProp(doc, transition, "a_track", "0");
+    setProp(doc, transition, "b_track", String(scoreTrackIndex));
+    setProp(doc, transition, "compositing", "0");
+    setProp(doc, transition, "distort", "0");
+    setProp(doc, transition, "rotate_center", "0");
+    setProp(doc, transition, "mlt_service", "qtblend");
+    setProp(doc, transition, "kdenlive_id", "qtblend");
+    setProp(doc, transition, "internal_added", "237");
+    setProp(doc, transition, "always_active", "1");
+    sequenceTractor.appendChild(transition);
+  } else {
+    // Legacy format: insert the playlist directly before the main tractor and
+    // add it as a plain track with a frei0r.cairoblend composite transition.
+    root.insertBefore(scorePlaylist, mainTractor);
+
+    const newTrack = doc.createElement("track");
+    newTrack.setAttribute("producer", scorePlaylistId);
+    mainTractor.appendChild(newTrack);
+
+    const trackIndex =
+      Array.from(mainTractor.children).filter(
+        (c) => c.tagName.toLowerCase() === "track"
+      ).length - 1;
+
+    const transition = doc.createElement("transition");
+    setProp(doc, transition, "a_track", "0");
+    setProp(doc, transition, "b_track", String(trackIndex));
+    setProp(doc, transition, "version", "0.1");
+    setProp(doc, transition, "mlt_service", "frei0r.cairoblend");
+    setProp(doc, transition, "always_active", "1");
+    setProp(doc, transition, "internal_added", "237");
+    mainTractor.appendChild(transition);
+  }
 
   // --- Serialise and return ---
   return new XMLSerializer().serializeToString(doc);

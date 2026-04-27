@@ -1,0 +1,113 @@
+<kdenlivetitle LC_NUMERIC="C" duration="250" height="2160" out="250" width="3840">
+ <item type="QGraphicsTextItem" z-index="19">
+  <position x="168" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="95" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Players</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="18">
+  <position x="584" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="56" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Sets</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="17">
+  <position x="766" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="90" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Games</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="16">
+  <position x="948" y="1837">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="36" box-width="80" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Points</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="15">
+  <position x="132" y="1887">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="46" box-width="23" font="DejaVu Sans" font-color="255,221,0,255" font-italic="0" font-pixel-size="38" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">●</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="14">
+  <position x="168" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="48" box-width="129" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="13">
+  <position x="584" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="49" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="12">
+  <position x="766" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="53" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="11">
+  <position x="948" y="1890">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="48" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P1</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="10">
+  <position x="168" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="48" box-width="129" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player2</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="9">
+  <position x="584" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="49" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S2</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="8">
+  <position x="766" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="53" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G2</content>
+ </item>
+ <item type="QGraphicsTextItem" z-index="7">
+  <position x="948" y="1958">
+   <transform>1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content alignment="1" box-height="53" box-width="48" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P2</content>
+ </item>
+ <item type="QGraphicsRectItem" z-index="6">
+  <position x="93" y="1884">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,986,2"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="5">
+  <position x="554" y="1858">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,2,151"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="4">
+  <position x="736" y="1858">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,2,151"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="3">
+  <position x="918" y="1858">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="255,255,255,70" pencolor="0,0,0,255" penwidth="0" rect="0,0,2,151"/>
+ </item>
+ <item type="QGraphicsRectItem" z-index="0">
+  <position x="99" y="1821">
+   <transform zoom="100">1,0,0,0,1,0,0,0,1</transform>
+  </position>
+  <content brushcolor="30,30,30,191" pencolor="0,0,0,255" penwidth="0" rect="0,0,986,205"/>
+ </item>
+ <startviewport rect="0,0,3840,2160"/>
+ <endviewport rect="0,0,3840,2160"/>
+ <background color="0,0,0,0"/>
+</kdenlivetitle>

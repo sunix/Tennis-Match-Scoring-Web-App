@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildScoreSegments, buildTitleContent } from "./kdenliveExport";
+import { buildScoreSegments, buildTitleContent, buildTitleContentFromTemplate } from "./kdenliveExport";
 import type { MatchConfig, MatchEvent, MatchState } from "../types";
 import { getInitialState, computeState } from "../engine/scoring";
 
@@ -233,5 +233,117 @@ describe("buildTitleContent", () => {
     const xml = buildTitleContent(baseState, config, 1280, 720, 50);
     expect(xml).toContain('width="1280"');
     expect(xml).toContain('height="720"');
+  });
+});
+
+// ── buildTitleContentFromTemplate ────────────────────────────────────────────
+
+describe("buildTitleContentFromTemplate", () => {
+  const baseState: MatchState = {
+    setA: 1,
+    setB: 0,
+    gameA: 3,
+    gameB: 2,
+    pointA: 2,
+    pointB: 1,
+    tbA: null,
+    tbB: null,
+    server: "A",
+    matchWinner: null,
+  };
+
+  it("returns a string containing the kdenlivetitle root element", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    expect(xml).toContain("<kdenlivetitle");
+    expect(xml).toContain("</kdenlivetitle>");
+  });
+
+  it("replaces Player1 placeholder with player A name", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    expect(xml).toContain("Alice");
+    expect(xml).not.toContain(">Player1<");
+  });
+
+  it("replaces Player2 placeholder with player B name", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    expect(xml).toContain("Bob");
+    expect(xml).not.toContain(">Player2<");
+  });
+
+  it("replaces S1/S2 with set scores", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    // setA=1, setB=0
+    expect(xml).not.toContain(">S1<");
+    expect(xml).not.toContain(">S2<");
+  });
+
+  it("replaces G1/G2 with game scores", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    expect(xml).not.toContain(">G1<");
+    expect(xml).not.toContain(">G2<");
+  });
+
+  it("replaces P1/P2 with point labels", () => {
+    // pointA=2 → "30", pointB=1 → "15"
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    expect(xml).toContain("30");
+    expect(xml).toContain("15");
+    expect(xml).not.toContain(">P1<");
+    expect(xml).not.toContain(">P2<");
+  });
+
+  it("updates the duration attribute on the root element", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 100);
+    expect(xml).toContain('duration="100"');
+  });
+
+  it("sets out to durationFrames - 1", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 100);
+    expect(xml).toContain('out="99"');
+  });
+
+  it("includes the serve-indicator bullet", () => {
+    const xml = buildTitleContentFromTemplate(baseState, config, 250);
+    expect(xml).toContain("●");
+  });
+
+  it("keeps the bullet on player1 row when player A is serving", () => {
+    // Player A serves → bullet y should be at template player1 row (1887)
+    const xml = buildTitleContentFromTemplate({ ...baseState, server: "A" }, config, 250);
+    // The bullet item should have y="1887" (template default position)
+    expect(xml).toMatch(/z-index="15"[\s\S]*?y="1887"/);
+  });
+
+  it("moves the bullet to player2 row when player B is serving", () => {
+    // Player B serves → bullet y should shift by row offset (1887 + 68 = 1955)
+    const xml = buildTitleContentFromTemplate({ ...baseState, server: "B" }, config, 250);
+    expect(xml).toMatch(/z-index="15"[\s\S]*?y="1955"/);
+    // Should not have the old y position for the bullet
+    expect(xml).not.toMatch(/z-index="15"[\s\S]*?y="1887"/);
+  });
+
+  it("handles tiebreak scores", () => {
+    const tbState: MatchState = { ...baseState, tbA: 5, tbB: 4 };
+    const xml = buildTitleContentFromTemplate(tbState, config, 250);
+    expect(xml).toContain("TB");
+    expect(xml).toContain("5");
+    expect(xml).toContain("4");
+  });
+
+  it("shows match winner label in the winner row", () => {
+    const wonState: MatchState = { ...baseState, matchWinner: "A" };
+    const xml = buildTitleContentFromTemplate(wonState, config, 250);
+    expect(xml).toContain("Winner");
+  });
+
+  it("XML-encodes special characters in player names", () => {
+    const specialConfig: MatchConfig = {
+      ...config,
+      playerA: "A & B",
+      playerB: "C > D",
+    };
+    const xml = buildTitleContentFromTemplate(baseState, specialConfig, 250);
+    expect(xml).toContain("A &amp; B");
+    expect(xml).toContain("C &gt; D");
   });
 });

@@ -13,10 +13,11 @@ function installDomGlobals(): void {
 function usage(): string {
   return [
     "Usage:",
-    "  npx tsx scripts/generate-kdenlive-with-scores.ts <state.json> <input.kdenlive> [output.kdenlive]",
+    "  npx tsx scripts/generate-kdenlive-with-scores.ts [--bin-only] <state.json> <input.kdenlive> [output.kdenlive]",
     "",
     "Example:",
     "  npx tsx scripts/generate-kdenlive-with-scores.ts tennis-match.json anthony-sun-1.kdenlive anthony-sun-1-with-scores.kdenlive",
+    "  npx tsx scripts/generate-kdenlive-with-scores.ts --bin-only tennis-match.json anthony-sun-1.kdenlive anthony-sun-1-bin-only.kdenlive",
   ].join("\n");
 }
 
@@ -38,7 +39,10 @@ function sanitizeGeneratedXml(xml: string): string {
 }
 
 async function main(): Promise<void> {
-  const [, , statePath, inputKdenlivePath, outputArg] = process.argv;
+  const rawArgs = process.argv.slice(2);
+  const binOnly = rawArgs.includes("--bin-only");
+  const positionalArgs = rawArgs.filter((arg) => arg !== "--bin-only");
+  const [statePath, inputKdenlivePath, outputArg] = positionalArgs;
 
   if (!statePath || !inputKdenlivePath) {
     console.error(usage());
@@ -59,7 +63,9 @@ async function main(): Promise<void> {
     throw new Error("Invalid project JSON: missing match config.");
   }
 
-  const outputXml = exportToKdenlive(appState, normalizeKdenliveXml(inputKdenliveXml));
+  const outputXml = exportToKdenlive(appState, normalizeKdenliveXml(inputKdenliveXml), {
+    binOnly,
+  });
   const sanitizedOutputXml = sanitizeGeneratedXml(outputXml);
   await writeFile(outputPath, sanitizedOutputXml, "utf8");
 
@@ -69,6 +75,7 @@ async function main(): Promise<void> {
   );
 
   console.log(`Wrote: ${outputPath}`);
+  console.log(`Mode: ${binOnly ? "bin-only" : "timeline+bin"}`);
   console.log(`Project bin: ${analysis.hasProjectBin ? "found" : "missing"} (${analysis.binId ?? "n/a"})`);
   console.log(`Bin entries: ${analysis.binEntryCount}`);
   console.log(`Total producers: ${analysis.producerCount}`);

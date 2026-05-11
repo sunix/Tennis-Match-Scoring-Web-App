@@ -32,79 +32,79 @@ const SCORE_TITLE_TEMPLATE = `<kdenlivetitle LC_NUMERIC="C" duration="250" heigh
   <position x="168" y="1837">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="36" box-width="95" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Players</content>
+  <content alignment="1" box-height="36" box-width="95" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Players</content>
  </item>
  <item type="QGraphicsTextItem" z-index="18">
   <position x="584" y="1837">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="36" box-width="56" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Sets</content>
+  <content alignment="1" box-height="36" box-width="56" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Sets</content>
  </item>
  <item type="QGraphicsTextItem" z-index="17">
   <position x="766" y="1837">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="36" box-width="90" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Games</content>
+  <content alignment="1" box-height="36" box-width="90" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Games</content>
  </item>
  <item type="QGraphicsTextItem" z-index="16">
   <position x="948" y="1837">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="36" box-width="80" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Points</content>
+  <content alignment="1" box-height="36" box-width="80" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="30" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Points</content>
  </item>
  <item type="QGraphicsTextItem" z-index="15">
   <position x="132" y="1887">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="46" box-width="23" font="DejaVu Sans" font-color="255,221,0,255" font-italic="0" font-pixel-size="38" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">●</content>
+  <content alignment="1" box-height="46" box-width="23" font="Tahoma" font-color="255,221,0,255" font-italic="0" font-pixel-size="38" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">●</content>
  </item>
  <item type="QGraphicsTextItem" z-index="14">
   <position x="168" y="1890">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="48" box-width="129" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player1</content>
+  <content alignment="1" box-height="48" box-width="129" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player1</content>
  </item>
  <item type="QGraphicsTextItem" z-index="13">
   <position x="584" y="1890">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="53" box-width="49" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S1</content>
+  <content alignment="1" box-height="53" box-width="49" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S1</content>
  </item>
  <item type="QGraphicsTextItem" z-index="12">
   <position x="766" y="1890">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="53" box-width="53" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G1</content>
+  <content alignment="1" box-height="53" box-width="53" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G1</content>
  </item>
  <item type="QGraphicsTextItem" z-index="11">
   <position x="948" y="1890">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="53" box-width="48" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P1</content>
+  <content alignment="1" box-height="53" box-width="48" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P1</content>
  </item>
  <item type="QGraphicsTextItem" z-index="10">
   <position x="168" y="1958">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="48" box-width="129" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player2</content>
+  <content alignment="1" box-height="48" box-width="129" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="40" font-underline="0" font-weight="50" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">Player2</content>
  </item>
  <item type="QGraphicsTextItem" z-index="9">
   <position x="584" y="1958">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="53" box-width="49" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S2</content>
+  <content alignment="1" box-height="53" box-width="49" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">S2</content>
  </item>
  <item type="QGraphicsTextItem" z-index="8">
   <position x="766" y="1958">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="53" box-width="53" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G2</content>
+  <content alignment="1" box-height="53" box-width="53" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">G2</content>
  </item>
  <item type="QGraphicsTextItem" z-index="7">
   <position x="948" y="1958">
    <transform>1,0,0,0,1,0,0,0,1</transform>
   </position>
-  <content alignment="1" box-height="53" box-width="48" font="DejaVu Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P2</content>
+  <content alignment="1" box-height="53" box-width="48" font="Tahoma" font-color="255,255,255,255" font-italic="0" font-pixel-size="44" font-underline="0" font-weight="75" letter-spacing="0" shadow="0;#ff000000;0;0;0" tab-width="80" typewriter="0;2;1;0;0">P2</content>
  </item>
  <item type="QGraphicsRectItem" z-index="6">
   <position x="93" y="1884">
@@ -163,6 +163,14 @@ export interface ScoreSegment {
   startFrame: number;
   endFrame: number;
   state: MatchState;
+}
+
+export interface ExportToKdenliveOptions {
+  /**
+   * When true, only inject score producers into the project bin.
+   * No score track/playlist/transition is added to the timeline.
+   */
+  binOnly?: boolean;
 }
 
 /**
@@ -432,6 +440,54 @@ const DEFAULT_BUFFER_SECONDS = 30;
 /** Default timeline duration (seconds) when there are no events and no video. */
 const DEFAULT_DURATION_SECONDS = 60;
 
+function stripXmlDeclaration(xml: string): string {
+  return xml.replace(/^\s*<\?xml[^>]*\?>\s*/i, "");
+}
+
+function makeSimpleUUID(): string {
+  // Generate UUID format for Kdenlive: {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
+  const hex = (len: number): string => {
+    let out = "";
+    for (let i = 0; i < len; i++) {
+      out += Math.floor(Math.random() * 16).toString(16);
+    }
+    return out;
+  };
+
+  return `{${hex(8)}-${hex(4)}-${hex(4)}-${hex(4)}-${hex(12)}}`;
+}
+
+function makeSimpleHash(): string {
+  // Generate a simple MD5-like hash string (32 hex chars) for Kdenlive file_hash property
+  const chars = "0123456789abcdef";
+  let hash = "";
+  for (let i = 0; i < 32; i++) {
+    hash += chars[Math.floor(Math.random() * 16)];
+  }
+  return hash;
+}
+
+function timecodeToFrame(timecode: string, fps: number): number {
+  const m = timecode.match(/^(\d+):(\d+):(\d+)\.(\d{1,3})$/);
+  if (!m) return 0;
+  const hours = Number.parseInt(m[1], 10);
+  const minutes = Number.parseInt(m[2], 10);
+  const seconds = Number.parseInt(m[3], 10);
+  const millis = Number.parseInt(m[4].padEnd(3, "0"), 10);
+  const totalMs = ((hours * 60 + minutes) * 60 + seconds) * 1000 + millis;
+  return Math.max(0, Math.round((totalMs * fps) / 1000));
+}
+
+function timelineTotalFrames(sequenceTractor: Element, fps: number): number | null {
+  const outTc = sequenceTractor.getAttribute("out");
+  const inTc = sequenceTractor.getAttribute("in") ?? "00:00:00.000";
+  if (!outTc) return null;
+  const outFrame = timecodeToFrame(outTc, fps);
+  const inFrame = timecodeToFrame(inTc, fps);
+  const duration = outFrame - inFrame + 1;
+  return duration > 0 ? duration : null;
+}
+
 
 
 function setProp(doc: Document, parent: Element, name: string, value: string) {
@@ -554,11 +610,9 @@ function frameToTimecode(frame: number, fps: number): string {
 
 function nextKdenliveClipId(doc: Document): number {
   let maxId = 0;
-  const producers = Array.from(doc.querySelectorAll("producer"));
-  for (const producer of producers) {
-    const idValue = getPropValue(producer, "kdenlive:id");
-    if (!idValue) continue;
-    const n = Number.parseInt(idValue, 10);
+  const idProps = Array.from(doc.querySelectorAll('property[name="kdenlive:id"]'));
+  for (const prop of idProps) {
+    const n = Number.parseInt(prop.textContent ?? "", 10);
     if (Number.isFinite(n) && n > maxId) maxId = n;
   }
   return maxId + 1;
@@ -635,14 +689,16 @@ function nextTransitionIndex(doc: Document): number {
  */
 export function exportToKdenlive(
   appState: AppState,
-  kdenliveXml: string
+  kdenliveXml: string,
+  options?: ExportToKdenliveOptions
 ): string {
   const { config, events, videoInfo } = appState;
   if (!config) throw new Error("No match configuration found.");
+  const binOnly = options?.binOnly === true;
 
   // --- Parse the existing file ---
   const parser = new DOMParser();
-  const doc = parser.parseFromString(kdenliveXml, "application/xml");
+  const doc = parser.parseFromString(stripXmlDeclaration(kdenliveXml), "application/xml");
 
   const parseError = doc.querySelector("parsererror");
   if (parseError) {
@@ -660,17 +716,6 @@ export function exportToKdenlive(
     ? parseInt(profile.getAttribute("height") ?? "1080", 10)
     : 1080;
 
-  // --- Determine total timeline length ---
-  const totalDuration_s =
-    videoInfo?.duration_s ??
-    (events.length > 0
-      ? events[events.length - 1].t_s + DEFAULT_BUFFER_SECONDS
-      : DEFAULT_DURATION_SECONDS);
-  const totalFrames = Math.max(Math.ceil(totalDuration_s * fps), 1);
-
-  // --- Build score segments ---
-  const segments = buildScoreSegments(events, config, fps, totalFrames);
-
   // --- Detect format ---
   const newFormat = isNewKdenliveFormat(doc);
 
@@ -684,11 +729,29 @@ export function exportToKdenlive(
     throw new Error("Invalid kdenlive structure: main tractor has no parent element.");
   }
 
+  // --- Determine total timeline length ---
+  // Prefer the timeline duration from the sequence tractor so we never generate
+  // score clips that extend beyond the project timeline.
+  const sequenceFrames = timelineTotalFrames(sequenceTractor, fps);
+  const totalDuration_s =
+    videoInfo?.duration_s ??
+    (events.length > 0
+      ? events[events.length - 1].t_s + DEFAULT_BUFFER_SECONDS
+      : DEFAULT_DURATION_SECONDS);
+  const fallbackFrames = Math.max(Math.ceil(totalDuration_s * fps), 1);
+  const totalFrames = sequenceFrames ?? fallbackFrames;
+
+  // --- Build score segments ---
+  const segments = buildScoreSegments(events, config, fps, totalFrames);
+
   // --- Locate the Kdenlive project bin so producers can be registered ---
   // Kdenlive stores the project bin as a playlist. Different versions use different IDs.
   // Every producer must have an <entry> there; otherwise Kdenlive reports
   // "Clip … not found in project bin" and treats the project as corrupted.
   let mainBin = findProjectBin(doc);
+  
+  // Keep generated title clips at root bin level to match known-good exports.
+  const validFolderId = "-1";
 
   // If no bin exists, create one
   if (!mainBin) {
@@ -733,9 +796,11 @@ export function exportToKdenlive(
       : buildTitleContent(seg.state, config, width, height, durationFrames);
 
     // Core producer properties (shared between both formats)
+    // Property order matters in practice for compatibility with some Kdenlive imports.
     setProp(doc, producer, "length", String(durationFrames));
     setProp(doc, producer, "eof", "pause");
     setProp(doc, producer, "resource", "");
+    setProp(doc, producer, "meta.media.progressive", "1");
     setProp(doc, producer, "aspect_ratio", "1");
     setProp(doc, producer, "seekable", "1");
     setProp(doc, producer, "mlt_service", "kdenlivetitle");
@@ -746,19 +811,19 @@ export function exportToKdenlive(
     setProp(doc, producer, "kdenlive:clipname", `Score segment ${i + 1}`);
     setProp(doc, producer, "meta.media.width", String(width));
     setProp(doc, producer, "meta.media.height", String(height));
+    setProp(doc, producer, "kdenlive:duration", frameToTimecode(durationFrames, fps));
+    setProp(doc, producer, "xml", "was here");
+    setProp(doc, producer, "kdenlive:folderid", validFolderId);
+    setProp(doc, producer, "kdenlive:monitorPosition", "0");
+    setProp(doc, producer, "kdenlive:control_uuid", makeSimpleUUID());
+    setProp(doc, producer, "kdenlive:uniqueId", makeSimpleUUID());
+    setProp(doc, producer, "kdenlive:file_hash", makeSimpleHash());
 
     if (newFormat) {
-      // New-format properties (Kdenlive ≥7.37)
-      setProp(doc, producer, "meta.media.progressive", "1");
-      setProp(doc, producer, "kdenlive:duration", frameToTimecode(durationFrames, fps));
-      setProp(doc, producer, "xml", "was here");
-      setProp(doc, producer, "kdenlive:folderid", "-1");
-      setProp(doc, producer, "kdenlive:monitorPosition", "0");
+      // New-format properties already set above
     } else {
-      // Legacy-format properties (Kdenlive ≤7.10)
+      // Legacy-format additional properties (Kdenlive ≤7.10)
       setProp(doc, producer, "progressive", "1");
-      setProp(doc, producer, "kdenlive:duration", String(durationFrames));
-      setProp(doc, producer, "kdenlive:folderid", "-1");
       setProp(doc, producer, "transparency", "1");
       setProp(doc, producer, "mlt_type", "producer");
     }
@@ -782,10 +847,30 @@ export function exportToKdenlive(
     mainBin.appendChild(binEntry);
   }
 
-  // --- Build the score track playlist ---
-  const scorePlaylistId = "playlist_kdenlive_scores";
-  const scorePlaylist = doc.createElement("playlist");
-  scorePlaylist.setAttribute("id", scorePlaylistId);
+  if (!binOnly) {
+    // --- Build the score track playlist ---
+    // In modern Kdenlive projects, prefer writing into an existing empty timeline
+    // playlist so clips are directly visible/editable in the timeline UI.
+    let scorePlaylistId = "playlist_kdenlive_scores";
+    let scorePlaylist: Element = doc.createElement("playlist");
+    let reuseExistingTimelinePlaylist = false;
+
+    if (newFormat) {
+      const existingTimelinePlaylist = doc.querySelector('playlist[id="playlist6"]');
+      if (existingTimelinePlaylist && existingTimelinePlaylist.querySelectorAll("entry").length === 0) {
+        scorePlaylist = existingTimelinePlaylist;
+        scorePlaylistId = "playlist6";
+        reuseExistingTimelinePlaylist = true;
+      }
+    }
+
+    if (!reuseExistingTimelinePlaylist) {
+      scorePlaylist.setAttribute("id", scorePlaylistId);
+    } else {
+      while (scorePlaylist.firstChild) {
+        scorePlaylist.removeChild(scorePlaylist.firstChild);
+      }
+    }
 
   let cursor = 0;
   for (let i = 0; i < segments.length; i++) {
@@ -818,6 +903,9 @@ export function exportToKdenlive(
   }
 
   if (newFormat) {
+    if (reuseExistingTimelinePlaylist) {
+      // Reusing playlist6: no extra score tractor/track/transition needed.
+    } else {
     // New format: score track is a sub-tractor with the score playlist +
     // an empty companion playlist (needed by the Kdenlive tractor-per-track model).
     const scoreAuxPlaylistId = "playlist_kdenlive_scores_aux";
@@ -874,6 +962,7 @@ export function exportToKdenlive(
     setProp(doc, transition, "internal_added", "237");
     setProp(doc, transition, "always_active", "1");
     sequenceTractor.appendChild(transition);
+    }
   } else {
     // Legacy format: insert the playlist directly before the main tractor and
     // add it as a plain track with a frei0r.cairoblend composite transition.
@@ -898,8 +987,18 @@ export function exportToKdenlive(
     mainTractor.appendChild(transition);
   }
 
+  }
+
   // --- Serialise and return ---
-  return new XMLSerializer().serializeToString(doc);
+  const serializer = new XMLSerializer();
+  let xmlString = serializer.serializeToString(doc);
+  
+  // Ensure XML declaration is present for Kdenlive compatibility
+  if (!xmlString.startsWith('<?xml')) {
+    xmlString = `<?xml version="1.0" encoding="utf-8"?>\n${xmlString}`;
+  }
+  
+  return xmlString;
 }
 
 /**
@@ -931,7 +1030,7 @@ export function analyzeKdenliveFile(kdenliveXml: string): {
   suggestions: string[];
 } {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(kdenliveXml, "application/xml");
+  const doc = parser.parseFromString(stripXmlDeclaration(kdenliveXml), "application/xml");
   
   const bin = findProjectBin(doc);
   const producers = Array.from(doc.querySelectorAll("producer"));
